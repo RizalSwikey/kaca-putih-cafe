@@ -32,23 +32,37 @@ export function Navbar() {
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
         {/* Brand Home Link */}
-        <Link href="/" className="flex items-center gap-2.5 group">
+        <Link href="/" className="flex items-center gap-2 group shrink-0">
           <Logo variant="horizontal" size="sm" />
         </Link>
 
         {/* Navigation links */}
-        <div className="flex items-center gap-2 sm:gap-4">
+        <div className="flex items-center gap-1 sm:gap-3">
           <Link
-            href="/"
+            href="/#menu-catalog"
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-colors ${
               pathname === "/"
-                ? "bg-forest/10 text-forest"
+                ? "text-forest font-bold"
                 : "text-espresso-muted hover:text-forest hover:bg-forest/5"
             }`}
           >
             Menu
+          </Link>
+
+          <Link
+            href="/#tentang-kaca-putih"
+            className="hidden md:inline px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide text-espresso-muted hover:text-forest hover:bg-forest/5 transition-colors"
+          >
+            Tentang Kami
+          </Link>
+
+          <Link
+            href="/#lokasi-kunjungan"
+            className="hidden sm:inline px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide text-espresso-muted hover:text-forest hover:bg-forest/5 transition-colors"
+          >
+            Lokasi
           </Link>
 
           <Link
@@ -66,14 +80,14 @@ export function Navbar() {
 
           <Link
             href="/admin"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-colors ${
+            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-colors ${
               pathname === "/admin"
                 ? "bg-forest text-cream-50 shadow-sm"
                 : "text-espresso-muted hover:text-forest hover:bg-forest/5"
             }`}
           >
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Admin</span>
+            <span className="hidden md:inline">Admin</span>
           </Link>
 
           {/* Sandbox Toggle */}

@@ -5,7 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { Search, Sparkles, ShoppingBag } from "lucide-react";
 import { CATEGORIES, PRODUCTS } from "@/data/menu";
 import { Product } from "@/types";
-import { StoreHeader } from "@/components/layout/StoreHeader";
+import { Hero } from "@/components/home/Hero";
+import { FeaturedSignatures } from "@/components/home/FeaturedSignatures";
+import { CafeStory } from "@/components/home/CafeStory";
 import { CategoryNav } from "@/components/menu/CategoryNav";
 import { MenuCard } from "@/components/menu/MenuCard";
 import { VariantDrawer } from "@/components/menu/VariantDrawer";
@@ -77,6 +79,22 @@ function MenuContent() {
     setIsDrawerOpen(true);
   };
 
+  const scrollToCatalog = () => {
+    const el = document.getElementById("menu-catalog");
+    if (el) {
+      const topOffset = el.offsetTop - 80;
+      window.scrollTo({ top: topOffset, behavior: "smooth" });
+    }
+  };
+
+  const scrollToVisit = () => {
+    const el = document.getElementById("tentang-kaca-putih");
+    if (el) {
+      const topOffset = el.offsetTop - 80;
+      window.scrollTo({ top: topOffset, behavior: "smooth" });
+    }
+  };
+
   // Filter products by search query
   const filteredProducts = searchQuery.trim()
     ? PRODUCTS.filter(
@@ -87,123 +105,139 @@ function MenuContent() {
     : null;
 
   return (
-    <div className="flex-1 flex flex-col pb-28">
-      {/* Dynamic Store Header with WIB Real-Time Clock */}
-      <StoreHeader />
-
-      {/* Sticky Category Navigation */}
-      <CategoryNav
-        categories={CATEGORIES}
-        activeCategoryId={activeCategoryId}
-        onSelectCategory={handleSelectCategory}
+    <div className="flex-1 flex flex-col pb-28 bg-[#FAF8F5]">
+      {/* 1. Emotional Storytelling Hero */}
+      <Hero
+        onExploreMenu={scrollToCatalog}
+        onVisitUs={scrollToVisit}
       />
 
-      {/* Search Input Filter */}
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 mt-6">
-        <div className="relative max-w-md mx-auto">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search our coffees, salt breads, snacks..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-full bg-white border border-cream-border text-xs text-espresso placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-forest shadow-xs"
-          />
-          {searchQuery && (
-            <button
-              type="button"
-              onClick={() => setSearchQuery("")}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-600"
-            >
-              Clear
-            </button>
-          )}
-        </div>
-      </div>
+      {/* 2. Featured Signatures Section (Page 2 & 7/10 highlights) */}
+      <FeaturedSignatures
+        products={PRODUCTS}
+        onSelectProduct={handleOpenProduct}
+        onViewAllMenu={scrollToCatalog}
+      />
 
-      {/* Main Catalog Content */}
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 mt-8 space-y-12">
-        {/* If search query active */}
-        {filteredProducts !== null ? (
-          <div>
-            <h2 className="font-serif text-xl font-bold text-espresso mb-4">
-              Search Results ({filteredProducts.length})
-            </h2>
-            {filteredProducts.length === 0 ? (
-              <div className="p-8 text-center bg-white rounded-2xl border border-cream-border text-espresso-subtle">
-                <p className="font-serif text-base font-semibold">No items found</p>
-                <p className="text-xs text-stone-500 mt-1">
-                  Try searching for another keyword like "Latte", "Salt Bread", or "Nasi".
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {filteredProducts.map((product) => (
-                  <MenuCard
-                    key={product.id}
-                    product={product}
-                    onSelect={handleOpenProduct}
-                  />
-                ))}
-              </div>
+      {/* 3. Full Menu Catalog Section */}
+      <div id="menu-catalog" className="w-full">
+        {/* Sticky Category Navigation */}
+        <CategoryNav
+          categories={CATEGORIES}
+          activeCategoryId={activeCategoryId}
+          onSelectCategory={handleSelectCategory}
+        />
+
+        {/* Search Input Filter */}
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 mt-8">
+          <div className="relative max-w-md mx-auto">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Cari kopi, shio pan, makanan, atau snack..."
+              className="w-full pl-10 pr-4 py-2.5 rounded-full bg-white border border-cream-border text-xs text-espresso placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-forest shadow-xs"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-600 font-medium"
+              >
+                Hapus
+              </button>
             )}
           </div>
-        ) : (
-          /* Grouped by Categories matching MenuKacaputih.pdf */
-          CATEGORIES.map((category) => {
-            const categoryProducts = PRODUCTS.filter(
-              (p) => p.category_id === category.id
-            );
-            if (categoryProducts.length === 0) return null;
+        </div>
 
-            return (
-              <section
-                key={category.id}
-                id={category.slug}
-                ref={(el) => {
-                  sectionRefs.current[category.id] = el;
-                }}
-                className="scroll-mt-40"
-              >
-                {/* Category Header */}
-                <div className="flex items-center justify-between pb-3 mb-4 border-b border-cream-border">
-                  <div className="flex items-center gap-2">
-                    <h2 className="font-serif text-2xl font-bold text-forest tracking-tight">
-                      {category.name}
-                    </h2>
-                    {category.slug === "our-signature" && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold">
-                        <Sparkles className="w-2.5 h-2.5 text-amber-600" />
-                        Staff Picks
-                      </span>
-                    )}
-                  </div>
-                  <span className="text-xs font-mono font-semibold text-espresso-subtle">
-                    {categoryProducts.length} items
-                  </span>
+        {/* Main Catalog Grid */}
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 mt-10 space-y-14">
+          {/* If search query active */}
+          {filteredProducts !== null ? (
+            <div>
+              <h2 className="font-serif text-2xl font-bold text-espresso mb-4">
+                Hasil Pencarian ({filteredProducts.length})
+              </h2>
+              {filteredProducts.length === 0 ? (
+                <div className="p-12 text-center bg-white rounded-3xl border border-cream-border text-espresso-subtle max-w-md mx-auto">
+                  <p className="font-serif text-lg font-bold text-espresso">Tidak ada menu yang sesuai</p>
+                  <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">
+                    Coba kata kunci lain seperti &quot;Mont Blanc&quot;, &quot;Latte&quot;, &quot;Salt Bread&quot;, atau &quot;Nasi Goreng&quot;.
+                  </p>
                 </div>
-
-                {/* Grid of Typography-First Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {categoryProducts.map((product) => (
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                  {filteredProducts.map((product) => (
                     <MenuCard
                       key={product.id}
                       product={product}
-                      categoryName={category.name}
                       onSelect={handleOpenProduct}
                     />
                   ))}
                 </div>
-              </section>
-            );
-          })
-        )}
+              )}
+            </div>
+          ) : (
+            /* Grouped by Categories matching MenuKacaputih.pdf */
+            CATEGORIES.map((category) => {
+              const categoryProducts = PRODUCTS.filter(
+                (p) => p.category_id === category.id
+              );
+              if (categoryProducts.length === 0) return null;
+
+              return (
+                <section
+                  key={category.id}
+                  id={category.slug}
+                  ref={(el) => {
+                    sectionRefs.current[category.id] = el;
+                  }}
+                  className="scroll-mt-44"
+                >
+                  {/* Category Header */}
+                  <div className="flex items-end justify-between pb-3.5 mb-5 border-b border-cream-border">
+                    <div className="flex items-center gap-2.5">
+                      <h2 className="font-serif text-2xl sm:text-3xl font-bold text-forest tracking-tight">
+                        {category.name}
+                      </h2>
+                      {category.slug === "our-signature" && (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold">
+                          <Sparkles className="w-2.5 h-2.5 text-amber-600" />
+                          Pilihan Barista
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-xs font-mono font-semibold text-espresso-subtle">
+                      {categoryProducts.length} pilihan
+                    </span>
+                  </div>
+
+                  {/* Grid of 1:1 image photography cards and intentional typography cards */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                    {categoryProducts.map((product) => (
+                      <MenuCard
+                        key={product.id}
+                        product={product}
+                        categoryName={category.name}
+                        onSelect={handleOpenProduct}
+                      />
+                    ))}
+                  </div>
+                </section>
+              );
+            })
+          )}
+        </div>
       </div>
+
+      {/* 4. Cafe Story & Physical Visit Section */}
+      <CafeStory />
 
       {/* Floating Cart Dock Bar (Visible when tray has items) */}
       {totalCount > 0 && (
         <aside
-          aria-label="Current order tray"
+          aria-label="Keranjang pesanan saat ini"
           className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-40 max-w-md w-full animate-fade-in"
         >
           <div className="p-3.5 rounded-2xl bg-forest text-cream-50 shadow-floating border border-forest-light flex items-center justify-between gap-3">
@@ -216,7 +250,7 @@ function MenuContent() {
               </div>
               <div className="flex flex-col">
                 <span className="text-[11px] text-cream-200 uppercase font-semibold tracking-wider">
-                  Tray Subtotal
+                  Nampan Pesanan
                 </span>
                 <span className="font-mono text-sm font-bold text-cream-50">
                   {formatIDR(totalAmount)}
@@ -229,7 +263,7 @@ function MenuContent() {
               onClick={() => setIsCartOpen(true)}
               className="py-2.5 px-4 rounded-xl bg-cream-100 text-forest hover:bg-white font-bold text-xs shadow-sm transition-all active:scale-95"
             >
-              View Order Tray
+              Lihat Nampan
             </button>
           </div>
         </aside>
@@ -252,8 +286,8 @@ export default function HomePage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center text-espresso-subtle text-xs">
-          Loading Kaca Putih Menu...
+        <div className="min-h-screen flex items-center justify-center text-espresso-subtle text-xs bg-[#FAF8F5]">
+          Memuat Kaca Putih Cafe &amp; Kitchen...
         </div>
       }
     >

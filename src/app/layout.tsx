@@ -5,16 +5,17 @@ import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CheckoutModal } from "@/components/cart/CheckoutModal";
 
 export const metadata: Metadata = {
-  title: "Kaca Putih Cafe & Kitchen | Artisanal Coffee & Dining in Malang",
+  title: "Kaca Putih Cafe & Kitchen | Artisanal Coffee & Bakery di Bunulrejo, Malang",
   description:
-    "Official digital ordering platform for Kaca Putih Cafe & Kitchen, Malang. Authentic Indonesian favorites, artisanal Japanese salt bread, and specialty coffee.",
+    "Official website & digital ordering platform for Kaca Putih Cafe & Kitchen, Bunulrejo, Malang. Authentic specialty coffee, daily fresh Japanese Salt Bread (Shio Pan), and comfort dining.",
   keywords: [
     "Kaca Putih",
-    "Cafe Malang",
-    "Japanese Salt Bread",
-    "Shio Pan",
-    "Coffee Shop Malang",
-    "Kaca Putih Kitchen",
+    "Kaca Putih Cafe",
+    "Cafe Bunulrejo Malang",
+    "Japanese Salt Bread Malang",
+    "Shio Pan Malang",
+    "Mont Blanc Coffee",
+    "Hidden Gem Cafe Malang",
   ],
   authors: [{ name: "Kaca Putih Cafe & Kitchen" }],
   openGraph: {
@@ -50,7 +51,7 @@ export default function RootLayout({
               Kaca Putih Cafe & Kitchen
             </p>
             <p className="text-cream-300 text-[11px] font-sans">
-              Jl. Kaca Putih, Malang, Jawa Timur • WhatsApp: +62 822-4540-6501
+              Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang • WhatsApp: +62 822-4540-6501
             </p>
             <p className="text-cream-muted text-[10px] mt-2">
               © {new Date().getFullYear()} Kaca Putih Cafe & Kitchen. All rights reserved.

@@ -1,6 +1,6 @@
 # Kaca Putih Cafe & Kitchen — Web Platform & Kitchen Display System
 
-Modern, fullstack digital ordering platform and real-time Kitchen Display System (KDS) engineered for **Kaca Putih Cafe & Kitchen** (Jl. Kaca Putih, Malang, East Java, Indonesia).
+Modern, fullstack digital ordering platform and real-time Kitchen Display System (KDS) engineered for **Kaca Putih Cafe & Kitchen** (Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang, East Java, Indonesia).
 
 Built with **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, **Supabase SSR / Realtime**, **Lucide React**, and **Framer Motion**.
 
