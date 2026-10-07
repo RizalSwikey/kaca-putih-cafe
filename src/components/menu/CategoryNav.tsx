@@ -38,13 +38,12 @@ export function CategoryNav({
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
   return (
     <div
-      className={`sticky top-16 z-30 w-full transition-all duration-200 border-b border-cream-border ${
+      className={`sticky top-20 z-30 w-full transition-all duration-200 border-b border-stone-200/60 ${
         isScrolled
-          ? "bg-cream-100/95 backdrop-blur-md shadow-sm py-2.5"
-          : "bg-cream-100 py-3"
+          ? "bg-[#FAF8F5]/95 backdrop-blur-md shadow-2xs py-2.5"
+          : "bg-[#FAF8F5] py-3"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,8 +62,8 @@ export function CategoryNav({
                 onClick={() => onSelectCategory(cat.id)}
                 className={`shrink-0 px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 ${
                   isActive
-                    ? "bg-forest text-cream-50 shadow-sm scale-102"
-                    : "bg-cream-card/80 text-espresso-muted hover:text-forest hover:bg-cream-200/60 border border-cream-border/60"
+                    ? "bg-forest text-cream-50 shadow-2xs"
+                    : "bg-white/80 text-stone-600 hover:text-forest hover:bg-white border border-stone-200/60"
                 }`}
               >
                 {cat.name}

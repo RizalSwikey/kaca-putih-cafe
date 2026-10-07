@@ -26,8 +26,8 @@ export function FeaturedSignatures({
   );
 
   return (
-    <section id="khas-kaca-putih" className="relative w-full py-16 sm:py-24 bg-[#F5F2EA] border-b border-cream-border overflow-hidden">
-      {/* Decorative background watermark */}
+    <section id="khas-kaca-putih" className="relative w-full py-16 sm:py-24 bg-[#F5F2EA] border-b border-stone-200/60 overflow-hidden">
+      {/* Decorative ambient background blur */}
       <div
         className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-[#EAE4D5]/60 blur-3xl pointer-events-none"
         aria-hidden="true"
@@ -37,15 +37,15 @@ export function FeaturedSignatures({
         {/* Editorial Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-forest text-cream-50 text-[10px] font-bold uppercase tracking-widest mb-3 shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-forest text-cream-50 text-[10px] font-bold uppercase tracking-widest mb-3 shadow-2xs">
               <Sparkles className="w-3 h-3 text-amber-300" />
-              <span>Our Signatures • Menu Halaman 2</span>
+              <span>Our Signatures</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-5xl font-bold text-espresso tracking-tight">
-              Yang Paling Dicari di Kaca Putih
+              Most Sought After at Kaca Putih
             </h2>
             <p className="mt-3 text-espresso-muted text-sm sm:text-base max-w-2xl font-normal leading-relaxed">
-              Empat racikan kopi khas yang diramu khusus oleh barista kami. Dibuat dari biji kopi pilihan dan disajikan dengan keseimbangan rasa yang menenangkan.
+              Four specialty coffee recipes curated by our baristas. Balanced with precision and poured to elevate your coffee ritual.
             </p>
           </div>
 
@@ -55,7 +55,7 @@ export function FeaturedSignatures({
               onClick={onViewAllMenu}
               className="inline-flex items-center gap-2 text-xs font-bold text-forest hover:text-forest-hover transition-colors uppercase tracking-wider group shrink-0"
             >
-              <span>Lihat Semua Katalog</span>
+              <span>Explore All Items</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           )}
@@ -63,9 +63,9 @@ export function FeaturedSignatures({
 
         {/* 1. VISUALLY DOMINANT MARQUEE HERO: Mont Blanc Spotlight */}
         {montBlanc && (
-          <div className="mb-12 rounded-3xl bg-white border border-cream-border shadow-card overflow-hidden">
+          <div className="mb-12 rounded-3xl bg-white border border-stone-200/60 shadow-sm overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-center">
-              {/* Left Showcase (55%): Generous Atmospheric Visual Presentation */}
+              {/* Left Showcase (55%): Atmospheric Visual Presentation */}
               <div className="lg:col-span-6 relative aspect-[4/3] lg:aspect-auto lg:h-[460px] bg-gradient-to-br from-[#FAF8F5] via-[#F3EEE3] to-[#E9E1D2] flex items-center justify-center p-8 overflow-hidden group">
                 {montBlanc.image_url && (
                   <Image
@@ -73,18 +73,18 @@ export function FeaturedSignatures({
                     alt="Mont Blanc Signature Coffee"
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-contain p-8 group-hover:scale-108 transition-transform duration-700 ease-out"
+                    className="object-contain p-8 group-hover:scale-105 transition-transform duration-700 ease-out"
                     priority
                   />
                 )}
 
                 {/* Floating Badge on Visual */}
-                <div className="absolute top-5 left-5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-forest text-cream-50 text-xs font-bold shadow-md">
+                <div className="absolute top-5 left-5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-forest text-cream-50 text-xs font-bold shadow-sm">
                   <Heart className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
-                  <span>#1 Best Seller Barista</span>
+                  <span>#1 Barista Favorite</span>
                 </div>
 
-                <div className="absolute bottom-5 right-5 px-3.5 py-1.5 rounded-2xl bg-white/95 backdrop-blur-md border border-cream-border shadow-md text-forest font-mono text-base font-bold">
+                <div className="absolute bottom-5 right-5 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-stone-200/60 shadow-sm text-forest font-mono text-base font-bold">
                   {formatIDRShort(montBlanc.base_price)}
                 </div>
               </div>
@@ -102,33 +102,33 @@ export function FeaturedSignatures({
                   </h3>
 
                   <p className="mt-4 text-xs sm:text-sm text-espresso-muted leading-relaxed font-normal">
-                    {montBlanc.description} Diciptakan untuk dinikmati langsung dari bibir gelas tanpa sedotan — agar kelembutan krim manis dingin menyentuh lidah terlebih dahulu, disusul kepekatan espresso aromatik yang hangat dan kaya.
+                    {montBlanc.description} Designed to be sipped directly from the glass rim without a straw — allowing the chilled velvety cream to touch the palate first, followed by the rich, aromatic depth of warm espresso.
                   </p>
 
                   {/* Flavor Profile Indicators */}
-                  <div className="mt-6 pt-5 border-t border-cream-border/80">
+                  <div className="mt-6 pt-5 border-t border-stone-200/60">
                     <span className="text-[10px] uppercase font-bold tracking-widest text-espresso-subtle block mb-2.5">
-                      Karakter Rasa
+                      Flavor Profile
                     </span>
                     <div className="flex flex-wrap gap-2 text-xs">
-                      <span className="px-3 py-1 rounded-xl bg-[#F5F2EA] border border-cream-border text-espresso font-medium">
+                      <span className="px-3 py-1 rounded-full bg-[#F5F2EA] border border-stone-200/60 text-espresso font-medium">
                         Velvety Sweet Cream
                       </span>
-                      <span className="px-3 py-1 rounded-xl bg-[#F5F2EA] border border-cream-border text-espresso font-medium">
-                        Dense Cold Brew Layer
+                      <span className="px-3 py-1 rounded-full bg-[#F5F2EA] border border-stone-200/60 text-espresso font-medium">
+                        Dense Espresso Layer
                       </span>
-                      <span className="px-3 py-1 rounded-xl bg-[#F5F2EA] border border-cream-border text-espresso font-medium">
-                        Smooth Dark Chocolate Note
+                      <span className="px-3 py-1 rounded-full bg-[#F5F2EA] border border-stone-200/60 text-espresso font-medium">
+                        Dark Chocolate Undertone
                       </span>
                     </div>
                   </div>
                 </div>
 
                 {/* Bottom Action */}
-                <div className="mt-8 pt-6 border-t border-cream-border flex items-center justify-between gap-4">
+                <div className="mt-8 pt-6 border-t border-stone-200/60 flex items-center justify-between gap-4">
                   <div>
                     <span className="text-[10px] uppercase tracking-wider text-espresso-subtle block">
-                      Harga Menu
+                      Price
                     </span>
                     <span className="font-mono text-xl font-bold text-forest">
                       Rp 30.000
@@ -138,10 +138,10 @@ export function FeaturedSignatures({
                   <button
                     type="button"
                     onClick={() => onSelectProduct(montBlanc)}
-                    className="px-6 py-3 rounded-xl bg-forest hover:bg-forest-hover text-cream-50 font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-98 flex items-center gap-2"
+                    className="px-6 py-3 rounded-full bg-forest hover:bg-forest-hover text-cream-50 font-bold text-xs uppercase tracking-wider hover:-translate-y-0.5 transition-all shadow-sm active:scale-98 flex items-center gap-2"
                   >
                     <Plus className="w-4 h-4" />
-                    <span>Pesan Mont Blanc</span>
+                    <span>Order Mont Blanc</span>
                   </button>
                 </div>
               </div>
@@ -149,13 +149,13 @@ export function FeaturedSignatures({
           </div>
         )}
 
-        {/* 2. ASYMMETRIC TRIO: The Other 3 Coffee Signatures from Page 2 */}
+        {/* 2. ASYMMETRIC TRIO: The Other 3 Coffee Signatures */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {secondarySignatures.map((item) => (
             <div
               key={item.id}
               onClick={() => onSelectProduct(item)}
-              className="group relative rounded-3xl bg-white border border-cream-border hover:border-forest/40 shadow-xs hover:shadow-card hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between"
+              className="group relative rounded-3xl bg-white border border-stone-200/60 hover:border-forest/40 shadow-2xs hover:shadow-card hover:-translate-y-0.5 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between"
             >
               {/* Product Visual Container */}
               <div className="relative w-full aspect-square bg-gradient-to-b from-[#FAF8F5] to-[#F1ECE1] flex items-center justify-center p-6 overflow-hidden">
@@ -165,18 +165,18 @@ export function FeaturedSignatures({
                     alt={item.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-contain p-6 group-hover:scale-108 transition-transform duration-500 ease-out"
+                    className="object-contain p-6 group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
                 )}
 
                 <div className="absolute top-3.5 left-3.5">
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-forest text-cream-50 text-[10px] font-bold tracking-wider uppercase shadow-xs">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-forest text-cream-50 text-[10px] font-bold tracking-wider uppercase shadow-2xs">
                     <Sparkles className="w-2.5 h-2.5 text-amber-300" />
                     <span>Signature</span>
                   </span>
                 </div>
 
-                <div className="absolute bottom-3.5 right-3.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-forest font-mono text-xs font-bold shadow-xs border border-white">
+                <div className="absolute bottom-3.5 right-3.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-forest font-mono text-xs font-bold shadow-2xs border border-stone-200/60">
                   {formatIDRShort(item.base_price)}
                 </div>
               </div>
@@ -192,9 +192,9 @@ export function FeaturedSignatures({
                   </p>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-cream-border/70 flex items-center justify-between">
+                <div className="mt-5 pt-3 border-t border-stone-200/60 flex items-center justify-between">
                   <span className="text-[11px] font-mono text-forest font-semibold">
-                    Kaca Putih Blend
+                    House Specialty
                   </span>
 
                   <button
@@ -203,10 +203,10 @@ export function FeaturedSignatures({
                       e.stopPropagation();
                       onSelectProduct(item);
                     }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-forest/10 hover:bg-forest text-forest hover:text-cream-50 text-xs font-bold transition-all shadow-2xs active:scale-95"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-forest/10 hover:bg-forest text-forest hover:text-cream-50 text-xs font-bold transition-all shadow-2xs active:scale-95"
                   >
                     <Plus className="w-3.5 h-3.5" />
-                    <span>Pilih</span>
+                    <span>Select</span>
                   </button>
                 </div>
               </div>

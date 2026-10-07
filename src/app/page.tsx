@@ -143,8 +143,8 @@ function MenuContent() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Cari kopi, shio pan, makanan, atau snack..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-full bg-white border border-cream-border text-xs text-espresso placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-forest shadow-xs"
+              placeholder="Search coffee, salt bread, comfort food, or snacks..."
+              className="w-full pl-10 pr-4 py-2.5 rounded-full bg-white border border-stone-200/60 text-xs text-espresso placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-forest shadow-2xs"
             />
             {searchQuery && (
               <button
@@ -152,7 +152,7 @@ function MenuContent() {
                 onClick={() => setSearchQuery("")}
                 className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-600 font-medium"
               >
-                Hapus
+                Clear
               </button>
             )}
           </div>
@@ -164,13 +164,13 @@ function MenuContent() {
           {filteredProducts !== null ? (
             <div>
               <h2 className="font-serif text-2xl font-bold text-espresso mb-4">
-                Hasil Pencarian ({filteredProducts.length})
+                Search Results ({filteredProducts.length})
               </h2>
               {filteredProducts.length === 0 ? (
-                <div className="p-12 text-center bg-white rounded-3xl border border-cream-border text-espresso-subtle max-w-md mx-auto">
-                  <p className="font-serif text-lg font-bold text-espresso">Tidak ada menu yang sesuai</p>
+                <div className="p-12 text-center bg-white rounded-3xl border border-stone-200/60 text-espresso-subtle max-w-md mx-auto">
+                  <p className="font-serif text-lg font-bold text-espresso">No items found</p>
                   <p className="text-xs text-stone-500 mt-1.5 leading-relaxed">
-                    Coba kata kunci lain seperti &quot;Mont Blanc&quot;, &quot;Latte&quot;, &quot;Salt Bread&quot;, atau &quot;Nasi Goreng&quot;.
+                    Try searching for &quot;Mont Blanc&quot;, &quot;Latte&quot;, &quot;Salt Bread&quot;, or &quot;Rendang&quot;.
                   </p>
                 </div>
               ) : (
@@ -203,7 +203,7 @@ function MenuContent() {
                   className="scroll-mt-44"
                 >
                   {/* Category Header */}
-                  <div className="flex items-end justify-between pb-3.5 mb-5 border-b border-cream-border">
+                  <div className="flex items-end justify-between pb-3.5 mb-5 border-b border-stone-200/60">
                     <div className="flex items-center gap-2.5">
                       <h2 className="font-serif text-2xl sm:text-3xl font-bold text-forest tracking-tight">
                         {category.name}
@@ -211,12 +211,12 @@ function MenuContent() {
                       {category.slug === "our-signature" && (
                         <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold">
                           <Sparkles className="w-2.5 h-2.5 text-amber-600" />
-                          Pilihan Barista
+                          Barista Selection
                         </span>
                       )}
                     </div>
-                    <span className="text-xs font-mono font-semibold text-espresso-subtle">
-                      {categoryProducts.length} pilihan
+                    <span className="text-xs font-mono font-semibold text-stone-400">
+                      {categoryProducts.length} items
                     </span>
                   </div>
 
@@ -244,20 +244,20 @@ function MenuContent() {
       {/* Floating Cart Dock Bar (Visible when tray has items) */}
       {totalCount > 0 && (
         <aside
-          aria-label="Keranjang pesanan saat ini"
-          className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-40 max-w-md w-full animate-fade-in"
+          aria-label="Current order tray"
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-auto min-w-[290px] max-w-sm animate-fade-in"
         >
-          <div className="p-3.5 rounded-2xl bg-forest text-cream-50 shadow-floating border border-forest-light flex items-center justify-between gap-3">
+          <div className="py-2.5 px-4 rounded-full bg-forest text-cream-50 shadow-floating border border-forest-light/30 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="relative p-2.5 rounded-xl bg-forest-dark">
                 <ShoppingBag className="w-5 h-5 text-cream-200" />
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-forest text-[10px] font-black flex items-center justify-center">
                   {totalCount}
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-[11px] text-cream-200 uppercase font-semibold tracking-wider">
-                  Nampan Pesanan
+                <span className="text-[10px] text-cream-200 uppercase font-semibold tracking-wider">
+                  Your Tray
                 </span>
                 <span className="font-mono text-sm font-bold text-cream-50">
                   {formatIDR(totalAmount)}
@@ -268,9 +268,9 @@ function MenuContent() {
             <button
               type="button"
               onClick={() => setIsCartOpen(true)}
-              className="py-2.5 px-4 rounded-xl bg-cream-100 text-forest hover:bg-white font-bold text-xs shadow-sm transition-all active:scale-95"
+              className="py-2.5 px-4 rounded-xl bg-cream-100 text-forest hover:bg-white font-bold text-xs shadow-2xs hover:-translate-y-0.5 transition-all active:scale-95"
             >
-              Lihat Nampan
+              View Tray
             </button>
           </div>
         </aside>

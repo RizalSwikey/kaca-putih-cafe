@@ -58,28 +58,28 @@ export default function RootLayout({
                 <Logo variant="horizontal" size="sm" light />
               </div>
               <p className="text-xs text-cream-300 leading-relaxed max-w-sm font-normal">
-                Sebuah ruang singgah di sudut tenang Bunulrejo, Blimbing, Malang. Memadukan racikan specialty coffee, aroma roti bantal gurih harian, dan keramahan rumah.
+                A neighborhood sanctuary nestled in the serene alleys of Bunulrejo, Blimbing, Malang. Handcrafted specialty coffee, daily fresh Japanese Salt Bread, and comforting hospitality.
               </p>
               <div className="pt-2 flex items-center gap-2 text-[11px] text-cream-300/80">
                 <Heart className="w-3.5 h-3.5 text-amber-300" />
-                <span>Diseduh dan dipanggang dengan ketulusan setiap hari.</span>
+                <span>Brewed and baked with intention every day.</span>
               </div>
             </div>
 
             {/* Col 2: Navigation & Sections (3 cols) */}
             <div className="md:col-span-3 space-y-3 text-xs">
               <span className="font-serif font-bold text-sm text-cream-50 block uppercase tracking-wider">
-                Eksplorasi
+                Explore
               </span>
               <ul className="space-y-2 text-cream-300">
                 <li>
                   <Link href="/#menu-catalog" className="hover:text-cream-50 transition-colors">
-                    Menu Lengkap
+                    Full Menu
                   </Link>
                 </li>
                 <li>
                   <Link href="/#khas-kaca-putih" className="hover:text-cream-50 transition-colors">
-                    Racikan Paling Dicari
+                    Our Signatures
                   </Link>
                 </li>
                 <li>
@@ -89,12 +89,12 @@ export default function RootLayout({
                 </li>
                 <li>
                   <Link href="/#tentang-kaca-putih" className="hover:text-cream-50 transition-colors">
-                    Cerita Bunulrejo
+                    The Bunulrejo Story
                   </Link>
                 </li>
                 <li>
                   <Link href="/#lokasi-kunjungan" className="hover:text-cream-50 transition-colors">
-                    Lokasi &amp; Jam Buka
+                    Location &amp; Hours
                   </Link>
                 </li>
               </ul>
@@ -103,18 +103,18 @@ export default function RootLayout({
             {/* Col 3: Location & Operational Contacts (4 cols) */}
             <div className="md:col-span-4 space-y-3 text-xs">
               <span className="font-serif font-bold text-sm text-cream-50 block uppercase tracking-wider">
-                Kunjungan &amp; Kontak
+                Visit &amp; Contact
               </span>
               <div className="space-y-2.5 text-cream-300">
                 <div className="flex items-start gap-2.5">
                   <MapPin className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
                   <span className="leading-snug">
-                    Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang, Jawa Timur
+                    Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang, East Java
                   </span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <Clock className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
-                  <span>Reguler: 09:00 – 22:00 WIB • Ramadan: 12:00 – 23:00 WIB</span>
+                  <span>Regular: 09:00 – 22:00 WIB • Ramadan: 12:00 – 23:00 WIB</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <MessageCircle className="w-4 h-4 text-amber-300 shrink-0" />

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
 import {
   Clock,
   MapPin,
@@ -33,7 +32,6 @@ export function Hero({
 }: HeroProps) {
   const [currentTimeWIB, setCurrentTimeWIB] = useState<string>("09:00:00 WIB");
   const [isOpen, setIsOpen] = useState<boolean>(true);
-  const [scheduleDesc, setScheduleDesc] = useState<string>("09:00 – 22:00 WIB (Regular)");
   const [isRamadan, setIsRamadan] = useState<boolean>(false);
 
   const orderType = useCartStore((s) => s.orderType);
@@ -47,7 +45,6 @@ export function Hero({
       const status = checkStoreStatus(settings);
       setCurrentTimeWIB(`${timeStr} WIB`);
       setIsOpen(status.isOpen);
-      setScheduleDesc(status.schedule);
       setIsRamadan(status.isRamadan);
     }
 
@@ -64,68 +61,72 @@ export function Hero({
     }
   };
 
+  const hoursLabel = isRamadan
+    ? "Open Today • 12:00 – 23:00 WIB (Ramadan)"
+    : "Open Today • 09:00 – 22:00 WIB";
+
   return (
-    <section className="relative w-full overflow-hidden bg-[#FAF8F5] text-espresso pt-8 pb-14 sm:pt-12 sm:pb-20 border-b border-cream-border">
-      {/* Subtle warm architectural texture overlay */}
+    <section className="relative w-full overflow-hidden bg-[#FAF8F5] text-espresso pt-10 pb-16 sm:pt-14 sm:pb-24 border-b border-stone-200/60">
+      {/* Delicate warm ambient gradient washes */}
       <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#1F4A34_1px,transparent_1px)] [background-size:24px_24px]"
+        className="absolute inset-0 opacity-[0.025] pointer-events-none bg-[radial-gradient(#1F4A34_1px,transparent_1px)] [background-size:24px_24px]"
         aria-hidden="true"
       />
-      <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#E8E3D5]/50 blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 -left-32 w-80 h-80 rounded-full bg-[#DCE5DF]/40 blur-3xl pointer-events-none" />
+      <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#E8E2D2]/40 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 -left-32 w-80 h-80 rounded-full bg-[#DCE5DF]/30 blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Left Column: Storytelling Headline, Badges & Actions */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+          {/* Left Column: Storytelling Headline, Refined Badges & Minimalist English Copy */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
-            {/* Top Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-cream-200/70 border border-cream-border text-forest text-xs font-semibold mb-6 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-forest" />
-              <span className="font-serif tracking-wider uppercase text-[11px] font-bold">
-                Kaca Putih Cafe & Kitchen • Bunulrejo, Malang
+            {/* Top Eyebrow Chip */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-200/70 border border-stone-200/60 text-forest text-xs font-semibold mb-6 shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-forest animate-pulse" />
+              <span className="font-serif tracking-widest uppercase text-[11px] font-bold">
+                Kaca Putih Cafe &amp; Kitchen • Bunulrejo, Malang
               </span>
             </div>
 
             {/* Main Editorial Headline */}
-            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-espresso tracking-tight leading-[1.15]">
-              Terselip di Sudut Bunulrejo,{" "}
-              <span className="italic font-normal text-forest block sm:inline">
-                Hangat di Setiap Seduhan.
+            <h1 className="font-serif text-4xl sm:text-6xl lg:text-[4.2rem] font-bold text-espresso tracking-tight leading-[1.12]">
+              Quiet Corners,{" "}
+              <span className="italic font-normal text-forest block sm:inline font-serif">
+                Honest Brews.
               </span>
             </h1>
 
-            {/* Supporting Copy */}
+            {/* Subheadline in refined typography */}
             <p className="mt-5 text-espresso-muted text-base sm:text-lg leading-relaxed max-w-2xl font-sans font-normal">
-              Hidden gem cafe &amp; bakery di Malang dengan racikan kopi khas, artisan Salt Bread panggang harian, dan kenyamanan rumah.
+              An artisanal cafe &amp; hidden bakery tucked away in the serene alleys of Bunulrejo, Malang. Handcrafted espresso, daily fresh Japanese Salt Bread, and comforting dishes.
             </p>
 
-            {/* Three Brand Badges */}
-            <div className="mt-6 flex flex-wrap gap-2.5 sm:gap-3">
-              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-cream-border shadow-xs text-xs font-semibold text-espresso">
+            {/* Three Refined Hero Badges */}
+            <div className="mt-7 flex flex-wrap gap-2.5 sm:gap-3">
+              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 border border-stone-200/60 shadow-2xs text-xs font-semibold text-espresso hover:border-forest/30 transition-colors">
                 <Croissant className="w-4 h-4 text-amber-700" />
-                <span>Daily Fresh Bakery</span>
+                <span>Fresh Daily Shio Pan</span>
               </div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-cream-border shadow-xs text-xs font-semibold text-espresso">
-                <Compass className="w-4 h-4 text-forest" />
-                <span>Cozy Hidden Alley</span>
-              </div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-cream-border shadow-xs text-xs font-semibold text-espresso">
+              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 border border-stone-200/60 shadow-2xs text-xs font-semibold text-espresso hover:border-forest/30 transition-colors">
                 <Coffee className="w-4 h-4 text-[#8B5A2B]" />
-                <span>Comfort Food &amp; Coffee</span>
+                <span>Artisanal Roasts</span>
+              </div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 border border-stone-200/60 shadow-2xs text-xs font-semibold text-espresso hover:border-forest/30 transition-colors">
+                <Compass className="w-4 h-4 text-forest" />
+                <span>Alleyway Sanctuary</span>
               </div>
             </div>
 
-            {/* Primary & Secondary Call to Actions */}
-            <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
+            {/* Primary & Secondary Minimalist Actions */}
+            <div className="mt-8 flex flex-wrap items-center gap-3.5 w-full sm:w-auto">
               <button
                 type="button"
                 onClick={() => {
                   if (onExploreMenu) onExploreMenu();
                   else handleScrollTo("menu-catalog");
                 }}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-forest hover:bg-forest-hover text-cream-50 font-bold text-xs tracking-wider uppercase shadow-md transition-all active:scale-98 flex items-center justify-center gap-2 group"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-forest hover:bg-forest-hover text-cream-50 font-bold text-xs tracking-wider uppercase shadow-sm hover:-translate-y-0.5 transition-all active:scale-98 flex items-center justify-center gap-2 group"
               >
-                <span>Jelajahi Menu</span>
+                <span>Explore Menu</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
 
@@ -135,29 +136,29 @@ export function Hero({
                   if (onVisitUs) onVisitUs();
                   else handleScrollTo("tentang-kaca-putih");
                 }}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white hover:bg-cream-100 border border-forest/30 text-forest font-bold text-xs tracking-wider uppercase shadow-xs transition-all active:scale-98 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white hover:bg-cream-100 border border-stone-200/80 text-espresso font-bold text-xs tracking-wider uppercase shadow-2xs hover:-translate-y-0.5 transition-all active:scale-98 flex items-center justify-center gap-2"
               >
-                <span>Kunjungi Kami</span>
+                <span>Find Our Cafe</span>
               </button>
             </div>
 
-            {/* Secondary Operational Info & Live Status */}
-            <div className="mt-8 pt-6 border-t border-cream-border/80 w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-espresso-muted">
-              {/* Location & Address */}
+            {/* Operational Status & Verified Address Bar */}
+            <div className="mt-9 pt-6 border-t border-stone-200/60 w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-espresso-muted">
+              {/* Address */}
               <div className="flex items-start gap-2 max-w-sm">
                 <MapPin className="w-4 h-4 text-forest shrink-0 mt-0.5" />
-                <span className="leading-snug">
+                <span className="leading-snug font-medium text-stone-600">
                   Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang
                 </span>
               </div>
 
-              {/* Hours & Status */}
+              {/* Status & Hours */}
               <div className="flex items-center gap-2.5">
                 <div
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${
                     isOpen
-                      ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
-                      : "bg-rose-100 text-rose-800 border border-rose-300"
+                      ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                      : "bg-rose-50 text-rose-800 border border-rose-200"
                   }`}
                 >
                   <span
@@ -168,44 +169,44 @@ export function Hero({
                   <span>{isOpen ? "Open Now" : "Closed"}</span>
                 </div>
 
-                <div className="flex items-center gap-1.5 font-mono text-[11px] font-semibold text-espresso">
+                <div className="flex items-center gap-1.5 text-[11px] text-stone-600 font-medium">
                   <Clock className="w-3.5 h-3.5 text-stone-400" />
-                  <span>{currentTimeWIB}</span>
-                  <span className="text-stone-300 font-sans">•</span>
-                  <span className="font-sans text-[11px] text-espresso-muted font-normal">{scheduleDesc}</span>
+                  <span>{hoursLabel}</span>
+                  <span className="text-stone-300">•</span>
+                  <span className="font-mono text-stone-500">{currentTimeWIB}</span>
                 </div>
               </div>
             </div>
 
             {/* Ramadan Schedule Alert if Active */}
             {isRamadan && (
-              <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-900 text-xs font-medium">
+              <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 text-xs font-medium">
                 <Sparkles className="w-3.5 h-3.5 text-amber-700" />
-                <span>Jadwal Khusus Ramadan Aktif (12:00 – 23:00 WIB)</span>
+                <span>Special Ramadan Schedule Active (12:00 – 23:00 WIB)</span>
               </div>
             )}
 
-            {/* Dine-In vs Takeaway Order Toggle Bar (Secondary Utility) */}
-            <div className="mt-5 w-full max-w-md p-1.5 rounded-2xl bg-cream-200/70 border border-cream-border flex items-center gap-1.5 text-xs">
+            {/* Dine-In vs Takeaway Order Toggle Bar (Discreet Utility) */}
+            <div className="mt-5 w-full max-w-md p-1.5 rounded-full bg-cream-200/60 border border-stone-200/60 flex items-center gap-1.5 text-xs">
               <button
                 type="button"
                 onClick={() => setOrderType("dine_in")}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl transition-all ${
+                className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-full transition-all ${
                   orderType === "dine_in"
-                    ? "bg-forest text-cream-50 font-bold shadow-xs"
+                    ? "bg-forest text-cream-50 font-bold shadow-2xs"
                     : "text-espresso-muted hover:text-espresso"
                 }`}
               >
                 <Utensils className="w-3.5 h-3.5" />
-                <span>Dine In {tableNumber ? `(Meja ${tableNumber})` : ""}</span>
+                <span>Dine In {tableNumber ? `(Table ${tableNumber})` : ""}</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setOrderType("takeaway")}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl transition-all ${
+                className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-full transition-all ${
                   orderType === "takeaway"
-                    ? "bg-forest text-cream-50 font-bold shadow-xs"
+                    ? "bg-forest text-cream-50 font-bold shadow-2xs"
                     : "text-espresso-muted hover:text-espresso"
                 }`}
               >
@@ -218,54 +219,61 @@ export function Hero({
                   type="number"
                   min="1"
                   max="99"
-                  placeholder="Meja"
+                  placeholder="Table"
                   onChange={(e) => {
                     const val = e.target.value ? parseInt(e.target.value, 10) : null;
                     setTableNumber(val);
                   }}
-                  className="w-14 px-2 py-1.5 bg-white border border-cream-border rounded-lg text-center text-xs font-bold text-espresso focus:outline-none focus:ring-1 focus:ring-forest"
-                  title="Nomor Meja"
+                  className="w-14 px-2 py-1.5 bg-white border border-stone-200/60 rounded-full text-center text-xs font-bold text-espresso focus:outline-none focus:ring-1 focus:ring-forest"
+                  title="Table number"
                 />
               )}
             </div>
           </div>
 
-          {/* Right Column: Layered Editorial Photo Composition */}
+          {/* Right Column: Luxury Editorial Magazine Collage (Arch Frame + Soft Ambient Shadows) */}
           <div className="lg:col-span-5 relative flex items-center justify-center">
-            {/* Main Arch Frame with Signature Beverage Photography */}
-            <div className="relative w-full max-w-md aspect-[4/5] rounded-[2.5rem] overflow-hidden border-4 border-white shadow-floating bg-gradient-to-b from-[#ECE7DB] via-[#E4DDD0] to-[#D8CFC0] flex items-center justify-center p-6">
-              <Image
-                src="/images/menu/dirty_latte.png"
-                alt="Signature Dirty Latte Kaca Putih"
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 450px"
-                className="object-contain p-10 transform hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-espresso/80 via-transparent to-transparent pointer-events-none" />
-
-              {/* Bottom Image Caption */}
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <span className="text-[10px] tracking-[0.25em] uppercase font-bold text-amber-300 block mb-1">
-                  Signature Specialty
+            {/* Background Decorative Soft Arch Frame */}
+            <div className="relative w-full max-w-[380px] sm:max-w-[420px] aspect-[4/5] rounded-t-full rounded-b-3xl overflow-hidden border-2 border-stone-200/60 bg-gradient-to-b from-[#F3EFE6] via-[#EFE9DC] to-[#E5DEC\
+F] shadow-2xl shadow-stone-400/20 flex flex-col justify-between p-6 group">
+              {/* Top Subtitle inside arch */}
+              <div className="w-full text-center pt-8 z-10">
+                <span className="font-serif italic text-xs tracking-widest text-amber-900/80 uppercase">
+                  Artisanal House Special
                 </span>
-                <p className="font-serif text-xl sm:text-2xl font-bold leading-tight">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-espresso mt-1">
                   Dirty Latte &amp; Mont Blanc
-                </p>
-                <p className="text-xs text-cream-200/90 mt-1 line-clamp-1">
-                  Espresso pekat dituangkan langsung di atas susu dingin kental khas Kaca Putih.
-                </p>
+                </h3>
+              </div>
+
+              {/* Center Signature Glass Photo */}
+              <div className="relative w-full flex-1 flex items-center justify-center my-2">
+                <Image
+                  src="/images/menu/dirty_latte.png"
+                  alt="Signature Pour • Mont Blanc / Dirty Latte"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 420px"
+                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+              </div>
+
+              {/* Bottom Delicate Floating Tag */}
+              <div className="w-full text-center pb-2 z-10">
+                <div className="inline-block px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/60 shadow-sm text-xs font-medium text-stone-700">
+                  <span className="font-serif italic">Signature Pour</span> • Mont Blanc / Dirty Latte
+                </div>
               </div>
             </div>
 
-            {/* Overlapping Floating Card 1: Mont Blanc Coffee */}
-            <div className="absolute -top-4 -left-4 sm:-left-8 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-cream-border shadow-floating flex items-center gap-3 max-w-[210px] animate-fade-in hidden sm:flex">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-cream-200">
+            {/* Overlapping Floating Badge: Fresh Bakery */}
+            <div className="absolute -top-3 -left-3 sm:-left-6 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-stone-200/60 shadow-floating flex items-center gap-3 max-w-[210px] animate-fade-in hidden sm:flex">
+              <div className="relative w-11 h-11 rounded-xl overflow-hidden shrink-0 bg-cream-200">
                 <Image
                   src="/images/menu/sq_mont_blanc.png"
                   alt="Mont Blanc 30K"
                   fill
-                  sizes="48px"
+                  sizes="44px"
                   className="object-cover"
                 />
               </div>
@@ -273,35 +281,13 @@ export function Hero({
                 <span className="font-serif font-bold text-xs text-espresso leading-snug">
                   Mont Blanc
                 </span>
-                <span className="text-[10px] text-espresso-muted">Velvety Cream</span>
+                <span className="text-[10px] text-stone-500">Velvety Cream Crown</span>
                 <span className="font-mono text-xs font-bold text-forest mt-0.5">30K</span>
               </div>
             </div>
 
-            {/* Overlapping Floating Card 2: Korean Wings / Food Badge */}
-            <div className="absolute -bottom-6 -right-2 sm:-right-6 p-3.5 rounded-2xl bg-white/95 backdrop-blur-md border border-cream-border shadow-floating items-center gap-3 max-w-[230px] animate-fade-in hidden sm:flex">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-cream-200">
-                <Image
-                  src="/images/menu/sq_masitta_korean_wings.png"
-                  alt="Masitta Korean Wings"
-                  fill
-                  sizes="48px"
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[9px] uppercase font-bold text-amber-700 tracking-wider">
-                  Chef&apos;s Favorite
-                </span>
-                <span className="font-serif font-bold text-xs text-espresso leading-snug">
-                  Masitta Hot Wings
-                </span>
-                <span className="font-mono text-xs font-bold text-forest mt-0.5">30K</span>
-              </div>
-            </div>
-
-            {/* Authentic Brand Crest Stamp Seal */}
-            <div className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-2xl bg-white/90 backdrop-blur-md border border-cream-border shadow-md">
+            {/* Authentic Brand Crest Seal in top right corner */}
+            <div className="absolute top-5 right-5 p-2 rounded-2xl bg-white/90 backdrop-blur-md border border-stone-200/60 shadow-xs">
               <Logo variant="icon" size="sm" />
             </div>
           </div>

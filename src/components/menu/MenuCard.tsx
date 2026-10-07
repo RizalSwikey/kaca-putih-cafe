@@ -21,8 +21,8 @@ export function MenuCard({ product, onSelect, categoryName }: MenuCardProps) {
       onClick={() => isAvailable && onSelect(product)}
       className={`group relative flex flex-col justify-between rounded-2xl bg-white border transition-all duration-300 overflow-hidden ${
         isAvailable
-          ? "border-cream-border/90 hover:border-forest/40 hover:shadow-card hover:-translate-y-1 cursor-pointer"
-          : "border-stone-200/50 opacity-60 cursor-not-allowed bg-stone-50/60"
+          ? "border-stone-200/60 hover:border-forest/40 hover:shadow-card hover:-translate-y-0.5 cursor-pointer"
+          : "border-stone-200/40 opacity-60 cursor-not-allowed bg-stone-50/60"
       }`}
     >
       {/* 1. Top Media: Photo OR Artisanal Illustrated Medallion */}
@@ -141,11 +141,11 @@ export function MenuCard({ product, onSelect, categoryName }: MenuCardProps) {
                 e.stopPropagation();
                 onSelect(product);
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-forest/10 hover:bg-forest text-forest hover:text-cream-50 text-xs font-bold transition-all active:scale-95 shadow-2xs"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-forest/10 hover:bg-forest text-forest hover:text-cream-50 text-xs font-bold transition-all active:scale-95 shadow-2xs"
               aria-label={`Select ${product.name}`}
             >
               <Plus className="w-3.5 h-3.5" />
-              <span>{hasVariants ? "Pilih" : "Tambah"}</span>
+              <span>{hasVariants ? "Select" : "Add"}</span>
             </button>
           ) : (
             <span className="px-2.5 py-1 rounded-lg bg-stone-100 text-stone-500 text-[10px] font-bold uppercase tracking-wider border border-stone-200">

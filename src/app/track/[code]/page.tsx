@@ -303,13 +303,13 @@ export default function OrderTrackerPage() {
             </div>
             <div className="flex-1">
               <span className="text-[10px] uppercase font-bold tracking-wider text-forest block">
-                QRIS Pembayaran
+                QRIS Instant Payment
               </span>
               <h3 className="font-serif font-bold text-base text-espresso">
                 Scan via GoPay, OVO, BCA, Livin, Dana, ShopeePay
               </h3>
               <p className="text-xs text-stone-500 mt-1">
-                Total Payable: <strong className="text-forest font-mono">{formatIDR(order.total_amount)}</strong>. Tunjukkan bukti pembayaran ke kasir jika diperlukan.
+                Total Payable: <strong className="text-forest font-mono">{formatIDR(order.total_amount)}</strong>. Please show confirmation to our barista or cashier if needed.
               </p>
             </div>
           </div>

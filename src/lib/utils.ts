@@ -126,8 +126,8 @@ ${itemsText}
 ----------------------------------------
 *TOTAL AMOUNT:* *${formatIDR(order.total_amount)}*
 ----------------------------------------
-_Pesanan ini dikirim via Sistem Web Kaca Putih._
-_Silakan konfirmasi pesanan ini. Terima kasih!_`;
+_This order was dispatched via Kaca Putih Web Platform._
+_Please confirm this order. Thank you!_`;
 
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(rawMessage)}`;
 }

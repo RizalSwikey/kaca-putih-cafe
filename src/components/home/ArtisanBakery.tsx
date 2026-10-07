@@ -15,61 +15,61 @@ export function ArtisanBakery({ products, onSelectProduct }: ArtisanBakeryProps)
   const donatKampung = products.find((p) => p.slug === "donat");
 
   return (
-    <section id="artisan-bakery" className="relative w-full py-16 sm:py-24 bg-[#FAF7F0] border-b border-cream-border overflow-hidden">
+    <section id="artisan-bakery" className="relative w-full py-16 sm:py-24 bg-[#FAF7F0] border-b border-stone-200/60 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold uppercase tracking-widest mb-3 shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-bold uppercase tracking-widest mb-3 shadow-2xs">
             <Croissant className="w-3.5 h-3.5 text-amber-700" />
-            <span>Panggang Segar Harian • Oven Kaca Putih</span>
+            <span>Daily Oven Bakes</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl font-bold text-espresso tracking-tight">
             Artisan Japanese Salt Bread (Shio Pan)
           </h2>
           <p className="mt-4 text-espresso-muted text-base sm:text-lg leading-relaxed font-normal">
-            Roti bantal artisanal dengan kerak dasar renyah gurih bermentega, butiran flaky sea salt di atasnya, serta bagian tengah yang lembut dan harum saat disantap hangat.
+            Artisanal roll with a crisp, butter-fried base, flaky sea salt crystals on top, and an airy, pillowy crumb served fresh and warm.
           </p>
         </div>
 
         {/* Feature Split Banner: Salt Bread Story on Left, Variety Chips on Right */}
         {saltBread && (
-          <div className="rounded-3xl bg-white border border-cream-border shadow-card p-6 sm:p-10 mb-12">
+          <div className="rounded-3xl bg-white border border-stone-200/60 shadow-sm p-6 sm:p-10 mb-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               {/* Left Column: Craftsmanship story */}
               <div className="lg:col-span-7 space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-800">
                   <Flame className="w-4 h-4 text-amber-600" />
-                  <span>Dua Sesi Pemanggangan Harian (Pagi 09:30 &amp; Sore 15:30 WIB)</span>
+                  <span>Two Daily Baking Slots (Morning 09:30 &amp; Afternoon 15:30 WIB)</span>
                 </div>
 
                 <h3 className="font-serif text-2xl sm:text-3xl font-bold text-espresso">
-                  Rahasia Kenikmatan Shio Pan Kami
+                  The Craft Behind Our Shio Pan
                 </h3>
 
                 <p className="text-xs sm:text-sm text-espresso-muted leading-relaxed">
-                  Kami mengadopsi teknik tradisional shio pan Jepang: mentega berkualitas tinggi digulung di inti adonan ragi alami. Saat dipanggang, mentega meleleh hingga menggoreng dasar roti hingga renyah keemasan, menghasilkan sensasi kontras tekstur luar dan dalam yang adiktif.
+                  We adopt authentic Japanese artisanal laminating techniques: high-grade European butter is rolled into naturally leavened dough. As it bakes, the butter melts through the bottom crust to fry it crisp and golden, creating a signature contrast of textures.
                 </p>
 
                 <div className="pt-2 flex flex-wrap gap-3 text-xs">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FAF8F5] border border-cream-border text-espresso font-medium">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-stone-200/60 text-espresso font-medium">
                     <Clock className="w-3.5 h-3.5 text-forest" />
-                    <span>Selalu disajikan hangat</span>
+                    <span>Always served warm</span>
                   </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FAF8F5] border border-cream-border text-espresso font-medium">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FAF8F5] border border-stone-200/60 text-espresso font-medium">
                     <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                    <span>5 Pilihan Topping Gurih &amp; Manis</span>
+                    <span>5 Savory &amp; Sweet Varieties</span>
                   </div>
                 </div>
               </div>
 
               {/* Right Column: Variety Cards with Fast Add Trigger */}
-              <div className="lg:col-span-5 flex flex-col justify-between p-6 rounded-2xl bg-gradient-to-br from-[#FAF8F5] to-[#F1ECE1] border border-cream-border">
-                <div className="flex items-center justify-between pb-3 border-b border-cream-border mb-3">
+              <div className="lg:col-span-5 flex flex-col justify-between p-6 rounded-2xl bg-gradient-to-br from-[#FAF8F5] to-[#F1ECE1] border border-stone-200/60">
+                <div className="flex items-center justify-between pb-3 border-b border-stone-200/60 mb-3">
                   <span className="font-serif font-bold text-base text-forest">
-                    Pilihan Varian Shio Pan
+                    Shio Pan Selections
                   </span>
                   <span className="text-xs font-mono font-bold text-espresso">
-                    Mulai {formatIDRShort(saltBread.base_price)}
+                    From {formatIDRShort(saltBread.base_price)}
                   </span>
                 </div>
 
@@ -77,13 +77,13 @@ export function ArtisanBakery({ products, onSelectProduct }: ArtisanBakeryProps)
                   {saltBread.variants?.map((v) => (
                     <div
                       key={v.id}
-                      className="p-2.5 rounded-xl bg-white/90 border border-cream-border/70 flex items-center justify-between text-xs"
+                      className="p-2.5 rounded-xl bg-white/90 border border-stone-200/60 flex items-center justify-between text-xs"
                     >
                       <span className="font-semibold text-espresso">{v.name}</span>
                       <span className="font-mono text-forest font-bold">
                         {v.price_delta > 0
                           ? `+${formatIDRShort(v.price_delta)}`
-                          : "Termasuk"}
+                          : "Included"}
                       </span>
                     </div>
                   ))}
@@ -92,10 +92,10 @@ export function ArtisanBakery({ products, onSelectProduct }: ArtisanBakeryProps)
                 <button
                   type="button"
                   onClick={() => onSelectProduct(saltBread)}
-                  className="w-full py-3 px-4 rounded-xl bg-forest hover:bg-forest-hover text-cream-50 font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-98 flex items-center justify-center gap-2"
+                  className="w-full py-3 px-4 rounded-full bg-forest hover:bg-forest-hover text-cream-50 font-bold text-xs uppercase tracking-wider hover:-translate-y-0.5 transition-all shadow-sm active:scale-98 flex items-center justify-center gap-2"
                 >
                   <Plus className="w-4 h-4" />
-                  <span>Pesan Japanese Salt Bread</span>
+                  <span>Order Japanese Salt Bread</span>
                 </button>
               </div>
             </div>
@@ -107,7 +107,7 @@ export function ArtisanBakery({ products, onSelectProduct }: ArtisanBakeryProps)
           {cinnamonRoll && (
             <div
               onClick={() => onSelectProduct(cinnamonRoll)}
-              className="group p-6 rounded-3xl bg-white border border-cream-border hover:border-forest/40 shadow-xs hover:shadow-card transition-all cursor-pointer flex flex-col justify-between"
+              className="group p-6 rounded-3xl bg-white border border-stone-200/60 hover:border-forest/40 shadow-2xs hover:shadow-card hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-2">
@@ -126,7 +126,7 @@ export function ArtisanBakery({ products, onSelectProduct }: ArtisanBakeryProps)
                 </p>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-cream-border flex items-center justify-between">
+              <div className="mt-5 pt-3 border-t border-stone-200/60 flex items-center justify-between">
                 <span className="text-[11px] text-stone-500 font-medium">
                   Classic Glaze &amp; Cream Cheese
                 </span>
@@ -136,9 +136,9 @@ export function ArtisanBakery({ products, onSelectProduct }: ArtisanBakeryProps)
                     e.stopPropagation();
                     onSelectProduct(cinnamonRoll);
                   }}
-                  className="px-3 py-1.5 rounded-xl bg-forest/10 hover:bg-forest text-forest hover:text-cream-50 text-xs font-bold transition-all"
+                  className="px-3.5 py-1.5 rounded-full bg-forest/10 hover:bg-forest text-forest hover:text-cream-50 text-xs font-bold transition-all"
                 >
-                  Pilih Varian
+                  Select Variety
                 </button>
               </div>
             </div>
@@ -147,7 +147,7 @@ export function ArtisanBakery({ products, onSelectProduct }: ArtisanBakeryProps)
           {donatKampung && (
             <div
               onClick={() => onSelectProduct(donatKampung)}
-              className="group p-6 rounded-3xl bg-white border border-cream-border hover:border-forest/40 shadow-xs hover:shadow-card transition-all cursor-pointer flex flex-col justify-between"
+              className="group p-6 rounded-3xl bg-white border border-stone-200/60 hover:border-forest/40 shadow-2xs hover:shadow-card hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-2">
@@ -166,9 +166,9 @@ export function ArtisanBakery({ products, onSelectProduct }: ArtisanBakeryProps)
                 </p>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-cream-border flex items-center justify-between">
+              <div className="mt-5 pt-3 border-t border-stone-200/60 flex items-center justify-between">
                 <span className="text-[11px] text-stone-500 font-medium">
-                  Gula Halus &amp; Brown Sugar
+                  Icing Sugar &amp; Brown Sugar
                 </span>
                 <button
                   type="button"
@@ -176,9 +176,9 @@ export function ArtisanBakery({ products, onSelectProduct }: ArtisanBakeryProps)
                     e.stopPropagation();
                     onSelectProduct(donatKampung);
                   }}
-                  className="px-3 py-1.5 rounded-xl bg-forest/10 hover:bg-forest text-forest hover:text-cream-50 text-xs font-bold transition-all"
+                  className="px-3.5 py-1.5 rounded-full bg-forest/10 hover:bg-forest text-forest hover:text-cream-50 text-xs font-bold transition-all"
                 >
-                  Pilih Varian
+                  Select Variety
                 </button>
               </div>
             </div>
