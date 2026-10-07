@@ -4,6 +4,29 @@ export type PaymentMethod = "cash" | "qris" | "card";
 
 export type OrderStatus = "new" | "preparing" | "ready" | "completed" | "cancelled";
 
+export type ShiftType = "morning" | "afternoon"; // morning: 09:00 - 15:30, afternoon: 15:30 - 22:00
+
+export type ShiftStatus = "open" | "closed";
+
+export interface CashierShift {
+  id: string;
+  cashier_name: string;
+  shift_type: ShiftType;
+  starting_cash: number;
+  actual_cash?: number | null;
+  expected_cash?: number | null;
+  cash_difference?: number | null;
+  total_cash_sales: number;
+  total_qris_sales: number;
+  total_card_sales: number;
+  total_sales: number;
+  orders_count: number;
+  status: ShiftStatus;
+  opened_at: string;
+  closed_at?: string | null;
+  notes?: string | null;
+}
+
 export interface Category {
   id: string;
   name: string;
@@ -30,6 +53,7 @@ export interface Product {
   is_available: boolean;
   is_daily_bakery: boolean;
   variants?: ProductVariant[];
+  created_at?: string;
 }
 
 export interface OrderItem {
@@ -56,6 +80,9 @@ export interface Order {
   status: OrderStatus;
   payment_method: PaymentMethod;
   total_amount: number;
+  cash_tendered?: number | null;
+  cash_change?: number | null;
+  shift_id?: string | null;
   is_demo: boolean;
   created_at: string;
   items?: OrderItem[];

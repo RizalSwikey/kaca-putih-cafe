@@ -39,6 +39,27 @@ CREATE TABLE IF NOT EXISTS public.product_variants (
 );
 
 -- 4. ORDERS TABLE
+-- 4. CASHIER SHIFTS TABLE
+CREATE TABLE IF NOT EXISTS public.cashier_shifts (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    cashier_name TEXT NOT NULL,
+    shift_type TEXT NOT NULL CHECK (shift_type IN ('morning', 'afternoon')),
+    starting_cash NUMERIC(12, 2) NOT NULL DEFAULT 0.00 CHECK (starting_cash >= 0),
+    actual_cash NUMERIC(12, 2),
+    expected_cash NUMERIC(12, 2),
+    cash_difference NUMERIC(12, 2),
+    total_cash_sales NUMERIC(12, 2) NOT NULL DEFAULT 0.00,
+    total_qris_sales NUMERIC(12, 2) NOT NULL DEFAULT 0.00,
+    total_card_sales NUMERIC(12, 2) NOT NULL DEFAULT 0.00,
+    total_sales NUMERIC(12, 2) NOT NULL DEFAULT 0.00,
+    orders_count INT NOT NULL DEFAULT 0,
+    status TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'closed')),
+    notes TEXT,
+    opened_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    closed_at TIMESTAMPTZ
+);
+
+-- 5. ORDERS TABLE
 CREATE TABLE IF NOT EXISTS public.orders (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     code TEXT NOT NULL UNIQUE,
@@ -50,10 +71,12 @@ CREATE TABLE IF NOT EXISTS public.orders (
     status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'preparing', 'ready', 'completed', 'cancelled')),
     payment_method TEXT NOT NULL CHECK (payment_method IN ('cash', 'qris', 'card')),
     total_amount NUMERIC(10, 2) NOT NULL DEFAULT 0.00 CHECK (total_amount >= 0),
+    cash_tendered NUMERIC(10, 2),
+    cash_change NUMERIC(10, 2),
+    shift_id UUID REFERENCES public.cashier_shifts(id) ON DELETE SET NULL,
     is_demo BOOLEAN NOT NULL DEFAULT false,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-
 -- 5. ORDER ITEMS TABLE
 CREATE TABLE IF NOT EXISTS public.order_items (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -100,6 +123,23 @@ ALTER TABLE public.product_variants ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.orders ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.order_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.store_settings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.cashier_shifts ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow public read cashier_shifts" ON public.cashier_shifts
+    FOR SELECT USING (true);
+CREATE POLICY "Allow public insert and update cashier_shifts" ON public.cashier_shifts
+    FOR ALL USING (true);
+
+-- Storage bucket for product images
+INSERT INTO storage.buckets (id, name, public) 
+VALUES ('product-images', 'product-images', true)
+ON CONFLICT (id) DO NOTHING;
+
+CREATE POLICY "Public Access product-images" ON storage.objects
+    FOR SELECT USING (bucket_id = 'product-images');
+CREATE POLICY "Upload product-images" ON storage.objects
+    FOR INSERT WITH CHECK (bucket_id = 'product-images');
+CREATE POLICY "Manage product-images" ON storage.objects
+    FOR ALL USING (bucket_id = 'product-images');
 
 -- Categories: Public read, Admin write
 CREATE POLICY "Allow public read categories" ON public.categories

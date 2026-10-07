@@ -109,13 +109,34 @@ export function Navbar() {
               </button>
 
               {staffDropdownOpen && (
-                <div className="absolute right-0 mt-1.5 w-44 rounded-2xl bg-white border border-stone-200/60 shadow-floating p-1.5 z-50 text-xs animate-fade-in">
+                <div className="absolute right-0 mt-1.5 w-52 rounded-2xl bg-white border border-stone-200/60 shadow-floating p-1.5 z-50 text-xs animate-fade-in space-y-0.5">
+                  <Link
+                    href="/pos"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
+                  >
+                    <ShoppingBag className="w-4 h-4 text-forest group-hover:text-cream-50" />
+                    <span>Kasir POS</span>
+                  </Link>
+                  <Link
+                    href="/pos/shift"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
+                  >
+                    <ChefHat className="w-4 h-4 text-forest group-hover:text-cream-50" />
+                    <span>Shift &amp; Laci Kas</span>
+                  </Link>
                   <Link
                     href="/kitchen"
                     className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
                   >
                     <ChefHat className="w-4 h-4 text-forest group-hover:text-cream-50" />
                     <span>Kitchen KDS</span>
+                  </Link>
+                  <Link
+                    href="/admin/menu"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-forest group-hover:text-cream-50" />
+                    <span>Manajemen Menu</span>
                   </Link>
                   <Link
                     href="/admin"
@@ -127,7 +148,6 @@ export function Navbar() {
                 </div>
               )}
             </div>
-
 
             {/* Cart Button: Sleek Tray (X) with refined shopping bag icon */}
             <button
@@ -216,12 +236,28 @@ export function Navbar() {
 
               <div className="flex items-center gap-3 font-medium">
                 <Link
+                  href="/pos"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-forest flex items-center gap-1"
+                >
+                  <ShoppingBag className="w-3.5 h-3.5" />
+                  <span>POS</span>
+                </Link>
+                <Link
                   href="/kitchen"
                   onClick={() => setMobileMenuOpen(false)}
                   className="hover:text-forest flex items-center gap-1"
                 >
                   <ChefHat className="w-3.5 h-3.5" />
                   <span>KDS</span>
+                </Link>
+                <Link
+                  href="/admin/menu"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-forest flex items-center gap-1"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>Menu</span>
                 </Link>
                 <Link
                   href="/admin"

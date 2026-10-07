@@ -233,11 +233,13 @@ export async function createOrder(
     status: "new",
     payment_method: payload.payment_method,
     total_amount: payload.total_amount,
+    cash_tendered: payload.cash_tendered || null,
+    cash_change: payload.cash_change || null,
+    shift_id: payload.shift_id || null,
     is_demo: isDemo,
     created_at: new Date().toISOString(),
     items: payload.items || [],
   };
-
   const supabase = getSupabaseBrowserClient();
   if (isSupabaseConfigured && supabase && !isDemo) {
     try {
@@ -254,9 +256,11 @@ export async function createOrder(
           status: newOrder.status,
           payment_method: newOrder.payment_method,
           total_amount: newOrder.total_amount,
+          cash_tendered: newOrder.cash_tendered,
+          cash_change: newOrder.cash_change,
+          shift_id: newOrder.shift_id,
           is_demo: newOrder.is_demo,
         })
-        .select()
         .single();
 
       if (!orderErr && insertedOrder) {
