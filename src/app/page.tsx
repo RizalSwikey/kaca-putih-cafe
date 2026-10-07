@@ -7,6 +7,7 @@ import { CATEGORIES, PRODUCTS } from "@/data/menu";
 import { Product } from "@/types";
 import { Hero } from "@/components/home/Hero";
 import { FeaturedSignatures } from "@/components/home/FeaturedSignatures";
+import { ArtisanBakery } from "@/components/home/ArtisanBakery";
 import { CafeStory } from "@/components/home/CafeStory";
 import { CategoryNav } from "@/components/menu/CategoryNav";
 import { MenuCard } from "@/components/menu/MenuCard";
@@ -119,7 +120,13 @@ function MenuContent() {
         onViewAllMenu={scrollToCatalog}
       />
 
-      {/* 3. Full Menu Catalog Section */}
+      {/* 3. Artisan Japanese Salt Bread & Fresh Bakery Showcase */}
+      <ArtisanBakery
+        products={PRODUCTS}
+        onSelectProduct={handleOpenProduct}
+      />
+
+      {/* 4. Full Menu Catalog Section */}
       <div id="menu-catalog" className="w-full">
         {/* Sticky Category Navigation */}
         <CategoryNav

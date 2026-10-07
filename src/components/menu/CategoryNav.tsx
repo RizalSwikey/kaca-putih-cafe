@@ -18,17 +18,16 @@ export function CategoryNav({
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    // Keep active button scrolled into view horizontally in the nav bar
+    // Keep active button horizontally centered inside the container only
     if (!containerRef.current) return;
     const activeBtn = containerRef.current.querySelector<HTMLButtonElement>(
       `[data-category-id="${activeCategoryId}"]`
     );
-    if (activeBtn) {
-      activeBtn.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest",
-      });
+    if (activeBtn && containerRef.current) {
+      const container = containerRef.current;
+      const left =
+        activeBtn.offsetLeft - container.offsetWidth / 2 + activeBtn.offsetWidth / 2;
+      container.scrollTo({ left, behavior: "smooth" });
     }
   }, [activeCategoryId]);
 
