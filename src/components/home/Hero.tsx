@@ -62,11 +62,11 @@ export function Hero({
   };
 
   const hoursLabel = isRamadan
-    ? "Open Today • 12:00 – 23:00 WIB (Ramadan)"
+    ? "Open Today • 12:00 – 23:00 WIB"
     : "Open Today • 09:00 – 22:00 WIB";
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#FAF8F5] text-espresso pt-10 pb-16 sm:pt-14 sm:pb-24 border-b border-stone-200/60">
+    <section className="relative w-full overflow-hidden bg-[#FAF8F5] text-espresso pt-10 pb-16 sm:pt-16 sm:pb-24 border-b border-stone-200/60">
       {/* Delicate warm ambient gradient washes */}
       <div
         className="absolute inset-0 opacity-[0.025] pointer-events-none bg-[radial-gradient(#1F4A34_1px,transparent_1px)] [background-size:24px_24px]"
@@ -88,7 +88,7 @@ export function Hero({
             </div>
 
             {/* Main Editorial Headline */}
-            <h1 className="font-serif text-4xl sm:text-6xl lg:text-[4.2rem] font-bold text-espresso tracking-tight leading-[1.12]">
+            <h1 className="font-serif text-4xl sm:text-6xl lg:text-[4.25rem] font-bold text-espresso tracking-tight leading-[1.12]">
               Quiet Corners,{" "}
               <span className="italic font-normal text-forest block sm:inline font-serif">
                 Honest Brews.
@@ -97,10 +97,10 @@ export function Hero({
 
             {/* Subheadline in refined typography */}
             <p className="mt-5 text-espresso-muted text-base sm:text-lg leading-relaxed max-w-2xl font-sans font-normal">
-              An artisanal cafe &amp; hidden bakery tucked away in the serene alleys of Bunulrejo, Malang. Handcrafted espresso, daily fresh Japanese Salt Bread, and comforting dishes.
+              An artisanal cafe &amp; hidden bakery tucked away in the serene alleys of Bunulrejo, Malang. Handcrafted espresso, daily fresh Japanese Salt Bread, and comforting heritage recipes.
             </p>
 
-            {/* Three Refined Hero Badges */}
+            {/* Three Refined Hero Feature Tags */}
             <div className="mt-7 flex flex-wrap gap-2.5 sm:gap-3">
               <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 border border-stone-200/60 shadow-2xs text-xs font-semibold text-espresso hover:border-forest/30 transition-colors">
                 <Croissant className="w-4 h-4 text-amber-700" />
@@ -152,7 +152,7 @@ export function Hero({
                 </span>
               </div>
 
-              {/* Status & Hours */}
+              {/* Status & Dynamic Hours */}
               <div className="flex items-center gap-2.5">
                 <div
                   className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${
@@ -231,11 +231,10 @@ export function Hero({
             </div>
           </div>
 
-          {/* Right Column: Luxury Editorial Magazine Collage (Arch Frame + Soft Ambient Shadows) */}
+          {/* Right Column: Luxury Editorial Magazine Collage (Arch Frame + Soft Ambient Shadows + Floating Tags) */}
           <div className="lg:col-span-5 relative flex items-center justify-center">
             {/* Background Decorative Soft Arch Frame */}
-            <div className="relative w-full max-w-[380px] sm:max-w-[420px] aspect-[4/5] rounded-t-full rounded-b-3xl overflow-hidden border-2 border-stone-200/60 bg-gradient-to-b from-[#F3EFE6] via-[#EFE9DC] to-[#E5DEC\
-F] shadow-2xl shadow-stone-400/20 flex flex-col justify-between p-6 group">
+            <div className="relative w-full max-w-[380px] sm:max-w-[420px] aspect-[4/5] rounded-t-full rounded-b-3xl overflow-hidden border-2 border-stone-200/60 bg-gradient-to-b from-[#F3EFE6] via-[#EFE9DC] to-[#E5DECF] shadow-2xl shadow-stone-300/40 flex flex-col justify-between p-6 group">
               {/* Top Subtitle inside arch */}
               <div className="w-full text-center pt-8 z-10">
                 <span className="font-serif italic text-xs tracking-widest text-amber-900/80 uppercase">
@@ -260,13 +259,13 @@ F] shadow-2xl shadow-stone-400/20 flex flex-col justify-between p-6 group">
 
               {/* Bottom Delicate Floating Tag */}
               <div className="w-full text-center pb-2 z-10">
-                <div className="inline-block px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/60 shadow-sm text-xs font-medium text-stone-700">
+                <div className="inline-block px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-stone-200/60 shadow-sm text-xs font-medium text-stone-700">
                   <span className="font-serif italic">Signature Pour</span> • Mont Blanc / Dirty Latte
                 </div>
               </div>
             </div>
 
-            {/* Overlapping Floating Badge: Fresh Bakery */}
+            {/* Overlapping Floating Ingredient Tag 1: Mont Blanc Velvety Cream */}
             <div className="absolute -top-3 -left-3 sm:-left-6 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-stone-200/60 shadow-floating flex items-center gap-3 max-w-[210px] animate-fade-in hidden sm:flex">
               <div className="relative w-11 h-11 rounded-xl overflow-hidden shrink-0 bg-cream-200">
                 <Image
@@ -286,9 +285,18 @@ F] shadow-2xl shadow-stone-400/20 flex flex-col justify-between p-6 group">
               </div>
             </div>
 
-            {/* Authentic Brand Crest Seal in top right corner */}
-            <div className="absolute top-5 right-5 p-2 rounded-2xl bg-white/90 backdrop-blur-md border border-stone-200/60 shadow-xs">
-              <Logo variant="icon" size="sm" />
+            {/* Overlapping Floating Ingredient Tag 2: Japanese Salt Bread Callout */}
+            <div className="absolute -bottom-4 -right-3 sm:-right-6 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-stone-200/60 shadow-floating flex items-center gap-3 max-w-[210px] animate-fade-in hidden sm:flex">
+              <div className="relative w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0 text-amber-800">
+                <Croissant className="w-5 h-5 text-amber-700" />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-serif font-bold text-xs text-espresso leading-snug">
+                  Artisan Shio Pan
+                </span>
+                <span className="text-[10px] text-stone-500">Baked Fresh Daily</span>
+                <span className="font-mono text-xs font-bold text-amber-800 mt-0.5">From 18K</span>
+              </div>
             </div>
           </div>
         </div>

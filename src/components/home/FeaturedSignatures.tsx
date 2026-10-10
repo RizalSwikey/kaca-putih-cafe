@@ -65,17 +65,19 @@ export function FeaturedSignatures({
         {montBlanc && (
           <div className="mb-12 rounded-3xl bg-white border border-stone-200/60 shadow-sm overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-center">
-              {/* Left Showcase (55%): Atmospheric Visual Presentation */}
-              <div className="lg:col-span-6 relative aspect-[4/3] lg:aspect-auto lg:h-[460px] bg-gradient-to-br from-[#FAF8F5] via-[#F3EEE3] to-[#E9E1D2] flex items-center justify-center p-8 overflow-hidden group">
+              {/* Left Showcase (50%): Atmospheric Visual Presentation */}
+              <div className="lg:col-span-6 relative aspect-square sm:aspect-[4/3] lg:aspect-auto lg:h-[460px] bg-gradient-to-b from-[#F3EFE6] via-[#EFE9DC] to-[#E5DECF] border-b lg:border-b-0 lg:border-r border-stone-200/60 flex items-center justify-center p-8 overflow-hidden group">
                 {montBlanc.image_url && (
-                  <Image
-                    src={montBlanc.image_url}
-                    alt="Mont Blanc Signature Coffee"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-contain p-8 group-hover:scale-105 transition-transform duration-700 ease-out"
-                    priority
-                  />
+                  <div className="relative w-full max-w-[320px] aspect-square flex items-center justify-center">
+                    <Image
+                      src={montBlanc.image_url}
+                      alt="Mont Blanc Signature Coffee"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      className="object-contain p-2 group-hover:scale-105 transition-transform duration-700 ease-out"
+                      priority
+                    />
+                  </div>
                 )}
 
                 {/* Floating Badge on Visual */}

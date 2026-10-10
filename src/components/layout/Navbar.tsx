@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   ShoppingBag,
-  Sparkles,
   Menu as MenuIcon,
   X,
   ChefHat,
@@ -40,15 +39,15 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-40 w-full backdrop-blur-md bg-[#FAF8F5]/90 border-b border-stone-200/60 transition-all">
+      <nav className="sticky top-0 z-40 w-full backdrop-blur-md bg-[#FAF8F5]/85 border-b border-stone-200/60 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-          {/* Brand Home Link (Authentic Kaca Putih Logo Emblem + Clean Editorial Typography) */}
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
+          {/* Authentic Brand Logo Mark (No redundant adjacent text, transparent, mix-blend-multiply) */}
+          <Link href="/" className="flex items-center group shrink-0" aria-label="Kaca Putih Cafe & Kitchen">
             <Logo variant="horizontal" size="sm" />
           </Link>
 
-          {/* Desktop Customer-First Navigation Links (Minimalist English) */}
-          <div className="hidden lg:flex items-center gap-7 text-xs font-semibold tracking-wider uppercase text-stone-600">
+          {/* Desktop Customer Navigation (Refined Minimalist English) */}
+          <div className="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase text-stone-600">
             <button
               type="button"
               onClick={() => handleNavClick("menu-catalog")}
@@ -71,7 +70,7 @@ export function Navbar() {
               className="hover:text-forest transition-colors py-1 flex items-center gap-1.5"
             >
               <span>Artisan Bakery</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[9px] font-bold font-sans">
+              <span className="px-1.5 py-0.5 rounded-full bg-amber-100/80 text-amber-900 text-[9px] font-bold font-sans">
                 Fresh
               </span>
             </button>
@@ -94,15 +93,15 @@ export function Navbar() {
           </div>
 
           {/* Actions & Utilities Right Section */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Subtle Staff / Ops Dropdown (Discreet) */}
+          <div className="flex items-center gap-3">
+            {/* Discreet Staff Portal Dropdown */}
             <div className="relative hidden md:block">
               <button
                 type="button"
                 onClick={() => setStaffDropdownOpen(!staffDropdownOpen)}
                 onBlur={() => setTimeout(() => setStaffDropdownOpen(false), 200)}
                 className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-stone-500 hover:text-espresso hover:bg-cream-200/50 transition-colors"
-                title="Internal Systems (KDS & Admin)"
+                title="Internal Management (KDS & Admin)"
               >
                 <span>Staff Hub</span>
                 <ChevronDown className="w-3 h-3 opacity-60" />
@@ -115,14 +114,14 @@ export function Navbar() {
                     className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
                   >
                     <ShoppingBag className="w-4 h-4 text-forest group-hover:text-cream-50" />
-                    <span>Kasir POS</span>
+                    <span>POS Terminal</span>
                   </Link>
                   <Link
                     href="/pos/shift"
                     className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
                   >
                     <ChefHat className="w-4 h-4 text-forest group-hover:text-cream-50" />
-                    <span>Shift &amp; Laci Kas</span>
+                    <span>Shift &amp; Cash Register</span>
                   </Link>
                   <Link
                     href="/kitchen"
@@ -136,7 +135,7 @@ export function Navbar() {
                     className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
                   >
                     <ShieldCheck className="w-4 h-4 text-forest group-hover:text-cream-50" />
-                    <span>Manajemen Menu</span>
+                    <span>Menu Catalog Admin</span>
                   </Link>
                   <Link
                     href="/admin"
@@ -149,16 +148,16 @@ export function Navbar() {
               )}
             </div>
 
-            {/* Cart Button: Sleek Tray (X) with refined shopping bag icon */}
+            {/* Cart Button: Refined Cart (X) indicator with minimal shopping bag icon */}
             <button
               type="button"
               onClick={() => setIsCartOpen(true)}
               className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-forest hover:bg-forest-hover text-cream-50 shadow-sm hover:-translate-y-0.5 transition-all active:scale-95 group"
-              aria-label="View Tray"
+              aria-label="View Cart"
             >
               <ShoppingBag className="w-4 h-4 text-cream-100" />
               <span className="text-xs font-semibold tracking-wide">
-                Tray ({totalCount})
+                Cart ({totalCount})
               </span>
               {totalCount > 0 && (
                 <span className="hidden sm:inline text-xs font-mono font-bold text-cream-200 border-l border-forest-light/60 pl-2">
@@ -167,7 +166,7 @@ export function Navbar() {
               )}
             </button>
 
-            {/* Mobile Hamburger Toggle */}
+            {/* Mobile Navigation Toggle */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -224,50 +223,39 @@ export function Navbar() {
             </div>
 
             {/* Mobile Utility & Staff Links */}
-            <div className="pt-4 border-t border-stone-200/60 flex flex-wrap items-center justify-between gap-3 text-xs text-stone-500">
-              <button
-                type="button"
-                onClick={() => setIsDemoMode(!isDemoMode)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-stone-200 bg-white font-medium text-stone-700"
+            <div className="pt-4 border-t border-stone-200/60 flex flex-wrap items-center justify-between gap-3 text-xs text-stone-500 font-medium">
+              <Link
+                href="/pos"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hover:text-forest flex items-center gap-1"
               >
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                <span>Sandbox: {isDemoMode ? "ON" : "OFF"}</span>
-              </button>
-
-              <div className="flex items-center gap-3 font-medium">
-                <Link
-                  href="/pos"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-forest flex items-center gap-1"
-                >
-                  <ShoppingBag className="w-3.5 h-3.5" />
-                  <span>POS</span>
-                </Link>
-                <Link
-                  href="/kitchen"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-forest flex items-center gap-1"
-                >
-                  <ChefHat className="w-3.5 h-3.5" />
-                  <span>KDS</span>
-                </Link>
-                <Link
-                  href="/admin/menu"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-forest flex items-center gap-1"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Menu</span>
-                </Link>
-                <Link
-                  href="/admin"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-forest flex items-center gap-1"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Admin</span>
-                </Link>
-              </div>
+                <ShoppingBag className="w-3.5 h-3.5" />
+                <span>POS</span>
+              </Link>
+              <Link
+                href="/kitchen"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hover:text-forest flex items-center gap-1"
+              >
+                <ChefHat className="w-3.5 h-3.5" />
+                <span>KDS</span>
+              </Link>
+              <Link
+                href="/admin/menu"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hover:text-forest flex items-center gap-1"
+              >
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Menu</span>
+              </Link>
+              <Link
+                href="/admin"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hover:text-forest flex items-center gap-1"
+              >
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Admin</span>
+              </Link>
             </div>
           </div>
         )}

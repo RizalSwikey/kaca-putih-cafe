@@ -245,9 +245,9 @@ function MenuContent() {
       {totalCount > 0 && (
         <aside
           aria-label="Current order tray"
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-auto min-w-[290px] max-w-sm animate-fade-in"
+          className="fixed bottom-16 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 w-auto min-w-[280px] max-w-sm animate-fade-in"
         >
-          <div className="py-2.5 px-4 rounded-full bg-forest text-cream-50 shadow-floating border border-forest-light/30 flex items-center justify-between gap-4">
+          <div className="py-2 px-4 rounded-full bg-forest text-cream-50 shadow-2xl border border-forest-light/40 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="relative p-2.5 rounded-xl bg-forest-dark">
                 <ShoppingBag className="w-5 h-5 text-cream-200" />
@@ -257,7 +257,7 @@ function MenuContent() {
               </div>
               <div className="flex flex-col">
                 <span className="text-[10px] text-cream-200 uppercase font-semibold tracking-wider">
-                  Your Tray
+                  Cart Subtotal
                 </span>
                 <span className="font-mono text-sm font-bold text-cream-50">
                   {formatIDR(totalAmount)}
@@ -268,9 +268,9 @@ function MenuContent() {
             <button
               type="button"
               onClick={() => setIsCartOpen(true)}
-              className="py-2.5 px-4 rounded-xl bg-cream-100 text-forest hover:bg-white font-bold text-xs shadow-2xs hover:-translate-y-0.5 transition-all active:scale-95"
+              className="py-2 px-4 rounded-full bg-cream-100 text-forest hover:bg-white font-bold text-xs shadow-2xs hover:-translate-y-0.5 transition-all active:scale-95"
             >
-              View Tray
+              View Cart
             </button>
           </div>
         </aside>
