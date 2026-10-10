@@ -66,7 +66,7 @@ export function FeaturedSignatures({
           <div className="mb-12 rounded-3xl bg-white border border-stone-200/60 shadow-sm overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-center">
               {/* Left Showcase (50%): Atmospheric Visual Presentation */}
-              <div className="lg:col-span-6 relative aspect-square sm:aspect-[4/3] lg:aspect-auto lg:h-[460px] bg-gradient-to-b from-[#F3EFE6] via-[#EFE9DC] to-[#E5DECF] border-b lg:border-b-0 lg:border-r border-stone-200/60 flex items-center justify-center p-8 overflow-hidden group">
+              <div className="lg:col-span-6 relative aspect-square sm:aspect-[4/3] lg:aspect-auto lg:h-[460px] bg-white border-b lg:border-b-0 lg:border-r border-stone-200/60 flex items-center justify-center p-8 overflow-hidden group">
                 {montBlanc.image_url && (
                   <div className="relative w-full max-w-[320px] aspect-square flex items-center justify-center">
                     <Image
@@ -79,7 +79,6 @@ export function FeaturedSignatures({
                     />
                   </div>
                 )}
-
                 {/* Floating Badge on Visual */}
                 <div className="absolute top-5 left-5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-forest text-cream-50 text-xs font-bold shadow-sm">
                   <Heart className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />

@@ -267,7 +267,7 @@ export function Hero({
 
             {/* Overlapping Floating Ingredient Tag 1: Mont Blanc Velvety Cream */}
             <div className="absolute -top-3 -left-3 sm:-left-6 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-stone-200/60 shadow-floating flex items-center gap-3 max-w-[210px] animate-fade-in hidden sm:flex">
-              <div className="relative w-11 h-11 rounded-xl overflow-hidden shrink-0 bg-cream-200">
+              <div className="relative w-11 h-11 rounded-xl overflow-hidden shrink-0">
                 <Image
                   src="/images/menu/sq_mont_blanc.png"
                   alt="Mont Blanc 30K"

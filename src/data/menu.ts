@@ -173,7 +173,7 @@ export const PRODUCTS: Product[] = [
     slug: "hazelnut-latte",
     description: "A smooth blend of espresso and steamed milk infused with sweet, nutty hazelnut syrup.",
     base_price: 27000,
-    image_url: '/images/menu/sq_brown_sugar_latte.png',
+    image_url: '/images/menu/sq_hazelnut_latte.png',
     is_signature: false,
     is_available: true,
     is_daily_bakery: false,
