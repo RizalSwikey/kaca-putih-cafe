@@ -35,3 +35,9 @@ logs/
 .DS_Store
 Thumbs.db
 Desktop.ini
+# AI tooling & skills
+skills.md
+.agents/
+.omp/
+.claude/
+.cursor/

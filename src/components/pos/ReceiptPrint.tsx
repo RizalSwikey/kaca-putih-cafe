@@ -28,37 +28,51 @@ export function ReceiptPrint({ order }: ReceiptPrintProps) {
     : "TAKEAWAY (BUNGKUS)";
 
   return (
-    <div id="receipt-print-area" className="hidden print:block font-mono text-black text-[12px] leading-tight p-0 m-0">
-      <style dangerouslySetInnerHTML={{ __html: `
+    <div
+      id="thermal-receipt"
+      className="hidden print:block font-mono text-black text-[12px] leading-tight p-0 m-0"
+    >
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        @page {
+          size: 58mm auto;
+          margin: 0mm;
+        }
         @media print {
-          @page {
-            size: 58mm auto;
-            margin: 0mm;
-          }
-          body {
+          html, body {
+            width: 58mm !important;
             margin: 0 !important;
             padding: 0 !important;
-            background: #fff !important;
-            color: #000 !important;
+            background: transparent !important;
+            overflow: visible !important;
           }
+          /* Hide the entire web app */
           body * {
-            visibility: hidden;
+            visibility: hidden !important;
           }
-          #receipt-print-area, #receipt-print-area * {
-            visibility: visible;
+          /* Only show the print area */
+          #thermal-receipt, #thermal-receipt * {
+            visibility: visible !important;
           }
-          #receipt-print-area {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 58mm;
-            padding: 3mm;
-            box-sizing: border-box;
+          #thermal-receipt {
+            position: absolute !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: 58mm !important;
+            max-width: 58mm !important;
+            padding: 3mm 2mm !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
             background: #fff !important;
             color: #000 !important;
+            page-break-after: avoid !important;
+            page-break-inside: avoid !important;
           }
         }
-      `}} />
+      `,
+        }}
+      />
 
       <div className="w-[52mm] mx-auto text-center space-y-1">
         {/* Header Store Info */}
@@ -78,7 +92,9 @@ export function ReceiptPrint({ order }: ReceiptPrintProps) {
           </div>
           <div className="flex justify-between">
             <span>Tanggal  :</span>
-            <span>{formattedDate} {formattedTime}</span>
+            <span>
+              {formattedDate} {formattedTime}
+            </span>
           </div>
           <div className="flex justify-between">
             <span>Tipe     :</span>
@@ -105,7 +121,9 @@ export function ReceiptPrint({ order }: ReceiptPrintProps) {
                   <td className="py-1 pr-1">
                     <p className="font-semibold">{item.product_name}</p>
                     <div className="text-[9px] pl-1 text-gray-800">
-                      <span>{item.quantity} x {formatIDR(item.unit_price)}</span>
+                      <span>
+                        {item.quantity} x {formatIDR(item.unit_price)}
+                      </span>
                       {item.variant_name && <span> ({item.variant_name})</span>}
                       {item.extra_shot && <span> [+Extra Shot]</span>}
                       {item.notes && <p className="italic">*{item.notes}</p>}

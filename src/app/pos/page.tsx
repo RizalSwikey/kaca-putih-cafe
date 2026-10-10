@@ -9,6 +9,11 @@ import { fetchAllProducts } from "@/lib/products-store";
 import { fetchCurrentShift, recordSaleToShift } from "@/lib/shifts-store";
 import { createOrder } from "@/lib/orders-store";
 import { formatIDR, formatIDRShort } from "@/lib/utils";
+import {
+  formatOrderToPlainText,
+  printViaRawBT,
+  printViaWebBluetooth,
+} from "@/lib/thermal-printer";
 import { PosPaymentModal } from "@/components/pos/PosPaymentModal";
 import { ReceiptPrint } from "@/components/pos/ReceiptPrint";
 import { ShiftModal } from "@/components/pos/ShiftModal";
@@ -492,10 +497,41 @@ export default function PosPage() {
       />
 
       {/* Success Toast Notification */}
-      {successToast && (
-        <div className="fixed bottom-6 left-6 z-50 p-4 rounded-2xl bg-emerald-900 text-white shadow-2xl flex items-center gap-2.5 text-xs font-semibold animate-fade-in border border-emerald-700">
-          <CheckCircle2 className="w-5 h-5 text-emerald-300" />
-          <span>{successToast}</span>
+      {/* Success Notification with Direct Sharkpos Bluetooth & RawBT Buttons */}
+      {successToast && lastCompletedOrder && (
+        <div className="fixed bottom-6 left-6 z-50 p-4 rounded-2xl bg-stone-900 text-white shadow-2xl flex flex-col sm:flex-row items-start sm:items-center gap-3 text-xs font-semibold animate-fade-in border border-stone-700 max-w-md">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+            <span>{successToast}</span>
+          </div>
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-end pt-1 sm:pt-0">
+            <button
+              type="button"
+              onClick={() => {
+                const text = formatOrderToPlainText(lastCompletedOrder);
+                printViaRawBT(text);
+              }}
+              className="px-2.5 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white text-[11px] font-bold"
+              title="Cetak langsung via aplikasi RawBT Android"
+            >
+              RawBT (Sharkpos)
+            </button>
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+                  const text = formatOrderToPlainText(lastCompletedOrder);
+                  await printViaWebBluetooth(text);
+                } catch (e) {
+                  alert(e instanceof Error ? e.message : "Gagal menghubungkan Bluetooth.");
+                }
+              }}
+              className="px-2.5 py-1.5 rounded-lg bg-sky-700 hover:bg-sky-600 text-white text-[11px] font-bold"
+              title="Sambungkan printer Bluetooth Sharkpos via Web Bluetooth"
+            >
+              Direct Bluetooth
+            </button>
+          </div>
         </div>
       )}
 

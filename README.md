@@ -203,6 +203,18 @@ Pesanan ini dikirim via Sistem Web Kaca Putih.
 
 ---
 
+### 9. Point of Sale (POS) & 58mm Thermal Receipt Printing
+- **Route**: `/pos` & `/pos/shift`
+- **Shift Management**:
+  - Cashier shift open/close with starting float, expected sales, and actual cash reconciliation.
+  - Automated difference auditing (`SEIMBANG`, `LEBIH`, `KURANG`).
+- **58mm Thermal Printing**:
+  - Isolated `@media print` layout container `#thermal-receipt` preventing Android tablet blank multi-page bleeding.
+  - Supports Sharkpos & generic ESC/POS receipt printers via **RawBT Intent Protocol** (`rawbt:...`) and native **Web Bluetooth (GATT BLE)**.
+  - Automatic receipt formatting for customer bills and end-of-shift cashier recaps.
+
+---
+
 ## 🗄️ Database Architecture (PostgreSQL / Supabase)
 
 ### Entity Relationship Model:
@@ -273,9 +285,9 @@ Open:
 - **Customer Menu**: [http://localhost:3000](http://localhost:3000)
 - **Customer Dine-In Simulation**: [http://localhost:3000/?table=5](http://localhost:3000/?table=5)
 - **Kitchen Display System (KDS)**: [http://localhost:3000/kitchen](http://localhost:3000/kitchen)
+- **Cashier POS Interface**: [http://localhost:3000/pos](http://localhost:3000/pos)
+- **POS Shift Management**: [http://localhost:3000/pos/shift](http://localhost:3000/pos/shift)
 - **Admin Dashboard**: [http://localhost:3000/admin](http://localhost:3000/admin)
-
-### Production Build
 ```bash
 bun run build
 bun run start

@@ -34,37 +34,49 @@ export function ShiftReportPrint({ shift }: ShiftReportPrintProps) {
     : `KURANG (${formatIDR(difference)})`;
 
   return (
-    <div id="shift-print-area" className="hidden print:block font-mono text-black text-[12px] leading-tight p-0 m-0">
-      <style dangerouslySetInnerHTML={{ __html: `
+    <div
+      id="thermal-receipt"
+      className="hidden print:block font-mono text-black text-[12px] leading-tight p-0 m-0"
+    >
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        @page {
+          size: 58mm auto;
+          margin: 0mm;
+        }
         @media print {
-          @page {
-            size: 58mm auto;
-            margin: 0mm;
-          }
-          body {
+          html, body {
+            width: 58mm !important;
             margin: 0 !important;
             padding: 0 !important;
-            background: #fff !important;
-            color: #000 !important;
+            background: transparent !important;
+            overflow: visible !important;
           }
           body * {
-            visibility: hidden;
+            visibility: hidden !important;
           }
-          #shift-print-area, #shift-print-area * {
-            visibility: visible;
+          #thermal-receipt, #thermal-receipt * {
+            visibility: visible !important;
           }
-          #shift-print-area {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 58mm;
-            padding: 3mm;
-            box-sizing: border-box;
+          #thermal-receipt {
+            position: absolute !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: 58mm !important;
+            max-width: 58mm !important;
+            padding: 3mm 2mm !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
             background: #fff !important;
             color: #000 !important;
+            page-break-after: avoid !important;
+            page-break-inside: avoid !important;
           }
         }
-      `}} />
+      `,
+        }}
+      />
 
       <div className="w-[52mm] mx-auto text-center space-y-1">
         {/* Header */}
