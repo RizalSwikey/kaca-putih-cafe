@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -25,7 +25,24 @@ export function Navbar() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [staffDropdownOpen, setStaffDropdownOpen] = useState(false);
+  const staffDropdownRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        staffDropdownRef.current &&
+        !staffDropdownRef.current.contains(event.target as Node)
+      ) {
+        setStaffDropdownOpen(false);
+      }
+    }
+    if (staffDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [staffDropdownOpen]);
   const handleNavClick = (id: string) => {
     setMobileMenuOpen(false);
     if (pathname === "/") {
@@ -95,11 +112,10 @@ export function Navbar() {
           {/* Actions & Utilities Right Section */}
           <div className="flex items-center gap-3">
             {/* Discreet Staff Portal Dropdown */}
-            <div className="relative hidden md:block">
+            <div ref={staffDropdownRef} className="relative hidden md:block">
               <button
                 type="button"
-                onClick={() => setStaffDropdownOpen(!staffDropdownOpen)}
-                onBlur={() => setTimeout(() => setStaffDropdownOpen(false), 200)}
+                onClick={() => setStaffDropdownOpen((prev) => !prev)}
                 className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-stone-500 hover:text-espresso hover:bg-cream-200/50 transition-colors"
                 title="Internal Management (KDS & Admin)"
               >
@@ -111,35 +127,40 @@ export function Navbar() {
                 <div className="absolute right-0 mt-1.5 w-52 rounded-2xl bg-white border border-stone-200/60 shadow-floating p-1.5 z-50 text-xs animate-fade-in space-y-0.5">
                   <Link
                     href="/pos"
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
+                    onClick={() => setStaffDropdownOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
                   >
                     <ShoppingBag className="w-4 h-4 text-forest group-hover:text-cream-50" />
                     <span>POS Terminal</span>
                   </Link>
                   <Link
                     href="/pos/shift"
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
+                    onClick={() => setStaffDropdownOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
                   >
                     <ChefHat className="w-4 h-4 text-forest group-hover:text-cream-50" />
                     <span>Shift &amp; Cash Register</span>
                   </Link>
                   <Link
                     href="/kitchen"
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
+                    onClick={() => setStaffDropdownOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
                   >
                     <ChefHat className="w-4 h-4 text-forest group-hover:text-cream-50" />
                     <span>Kitchen KDS</span>
                   </Link>
                   <Link
                     href="/admin/menu"
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
+                    onClick={() => setStaffDropdownOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
                   >
                     <ShieldCheck className="w-4 h-4 text-forest group-hover:text-cream-50" />
                     <span>Menu Catalog Admin</span>
                   </Link>
                   <Link
                     href="/admin"
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium"
+                    onClick={() => setStaffDropdownOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
                   >
                     <ShieldCheck className="w-4 h-4 text-forest group-hover:text-cream-50" />
                     <span>Admin Backoffice</span>
