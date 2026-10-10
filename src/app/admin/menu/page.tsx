@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/types";
-import { CATEGORIES } from "@/data/menu";
+import { CATEGORIES, PRODUCTS } from "@/data/menu";
 import {
   fetchAllProducts,
   createProduct,
@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 
 export default function ProductManagementPage() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>(PRODUCTS);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isLoading, setIsLoading] = useState(true);

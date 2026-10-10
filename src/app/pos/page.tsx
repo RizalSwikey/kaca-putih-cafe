@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Product, CashierShift, Order, PaymentMethod } from "@/types";
-import { CATEGORIES } from "@/data/menu";
+import { CATEGORIES, PRODUCTS } from "@/data/menu";
 import { fetchAllProducts } from "@/lib/products-store";
 import { fetchCurrentShift, recordSaleToShift } from "@/lib/shifts-store";
 import { createOrder } from "@/lib/orders-store";
@@ -37,7 +37,7 @@ interface PosCartItem {
 }
 
 export default function PosPage() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>(PRODUCTS);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [cart, setCart] = useState<PosCartItem[]>([]);
