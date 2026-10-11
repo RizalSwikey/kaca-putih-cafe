@@ -183,12 +183,12 @@ export function Hero({
               </button>
             </div>
 
-            {/* Operational Status, Location & Hours (Centered Vertical Stack) */}
+            {/* Operational Status, Location & Hours (Centered Vertical Stack with Lucide Icons) */}
             <div className="mt-8 pt-6 border-t border-stone-200/60 w-full">
-              <div className="flex flex-col items-center justify-center gap-1.5 text-center my-4">
+              <div className="flex flex-col items-center justify-center gap-1.5 text-center my-3">
                 {/* 1. Top: Operational Status */}
                 <div
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide rounded-full ${
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[10px] font-semibold tracking-wider rounded-full ${
                     isOpen
                       ? "bg-emerald-50 text-emerald-800 border border-emerald-200/60"
                       : "bg-rose-50 text-rose-800 border border-rose-200/60"
@@ -203,14 +203,14 @@ export function Hero({
                 </div>
 
                 {/* 2. Middle: Address & Location */}
-                <div className="flex items-center justify-center gap-1 text-xs md:text-sm text-stone-700 font-sans tracking-tight">
-                  <span>📍</span>
+                <div className="flex items-center justify-center gap-1.5 text-xs md:text-sm font-medium text-stone-700 font-sans tracking-tight">
+                  <MapPin className="w-3.5 h-3.5 text-[#1F4A34] shrink-0" />
                   <span>Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang</span>
                 </div>
 
                 {/* 3. Bottom: Operating Hours */}
-                <div className="flex items-center justify-center gap-1.5 text-xs text-stone-500 font-sans">
-                  <span>🕒</span>
+                <div className="flex items-center justify-center gap-1.5 text-[11px] md:text-xs text-stone-500 font-sans">
+                  <Clock className="w-3.5 h-3.5 text-stone-400 shrink-0" />
                   <span>{hoursLabel}</span>
                 </div>
               </div>
