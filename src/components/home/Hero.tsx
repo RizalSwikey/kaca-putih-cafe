@@ -183,46 +183,35 @@ export function Hero({
               </button>
             </div>
 
-            {/* Operational Status & Verified Address Bar (Strict Single-Line Nowrap Container) */}
-            <div className="mt-9 pt-6 border-t border-stone-200/60 w-full overflow-hidden">
-              <div className="flex items-center gap-2 sm:gap-3 flex-nowrap whitespace-nowrap overflow-x-auto no-scrollbar scrollbar-none py-1 text-[11px] sm:text-xs text-stone-600 font-sans">
-                {/* Full Address */}
-                <div className="flex items-center gap-1.5 shrink-0 whitespace-nowrap font-medium text-stone-600">
-                  <MapPin className="w-3.5 h-3.5 text-forest shrink-0" />
-                  <span>Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang</span>
-                </div>
-
-                <span className="text-stone-300 shrink-0 select-none">•</span>
-
-                {/* Status Badge */}
+            {/* Operational Status, Location & Hours (Centered Vertical Stack) */}
+            <div className="mt-8 pt-6 border-t border-stone-200/60 w-full">
+              <div className="flex flex-col items-center justify-center gap-1.5 text-center my-4">
+                {/* 1. Top: Operational Status */}
                 <div
-                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0 whitespace-nowrap ${
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide rounded-full ${
                     isOpen
-                      ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                      : "bg-rose-50 text-rose-800 border border-rose-200"
+                      ? "bg-emerald-50 text-emerald-800 border border-emerald-200/60"
+                      : "bg-rose-50 text-rose-800 border border-rose-200/60"
                   }`}
                 >
                   <span
-                    className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                    className={`w-1.5 h-1.5 rounded-full ${
                       isOpen ? "bg-emerald-600 animate-pulse" : "bg-rose-600"
                     }`}
                   />
-                  <span>{isOpen ? "Open Now" : "Closed"}</span>
+                  <span>{isOpen ? "OPEN NOW" : "CLOSED"}</span>
                 </div>
 
-                <span className="text-stone-300 shrink-0 select-none">•</span>
+                {/* 2. Middle: Address & Location */}
+                <div className="flex items-center justify-center gap-1 text-xs md:text-sm text-stone-700 font-sans tracking-tight">
+                  <span>📍</span>
+                  <span>Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang</span>
+                </div>
 
-                {/* Operating Hours */}
-                <div className="flex items-center gap-1 shrink-0 whitespace-nowrap text-stone-600 font-medium">
-                  <Clock className="w-3 h-3 text-stone-400 shrink-0" />
+                {/* 3. Bottom: Operating Hours */}
+                <div className="flex items-center justify-center gap-1.5 text-xs text-stone-500 font-sans">
+                  <span>🕒</span>
                   <span>{hoursLabel}</span>
-                </div>
-
-                <span className="text-stone-300 shrink-0 select-none">•</span>
-
-                {/* Live Digital Clock */}
-                <div className="font-mono text-[11px] text-stone-500 shrink-0 whitespace-nowrap">
-                  <span>{currentTimeWIB}</span>
                 </div>
               </div>
             </div>
