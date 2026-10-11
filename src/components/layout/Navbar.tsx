@@ -1,17 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  ShoppingBag,
-  Menu as MenuIcon,
-  X,
-  ChefHat,
-  ShieldCheck,
-  ChevronDown,
-  Printer,
-} from "lucide-react";
+import { ShoppingBag, Menu as MenuIcon, X } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { useCartStore } from "@/lib/cart-store";
 import { formatIDRShort } from "@/lib/utils";
@@ -25,25 +17,7 @@ export function Navbar() {
   const setIsDemoMode = useCartStore((s) => s.setIsDemoMode);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [staffDropdownOpen, setStaffDropdownOpen] = useState(false);
-  const staffDropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        staffDropdownRef.current &&
-        !staffDropdownRef.current.contains(event.target as Node)
-      ) {
-        setStaffDropdownOpen(false);
-      }
-    }
-    if (staffDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [staffDropdownOpen]);
   const handleNavClick = (id: string) => {
     setMobileMenuOpen(false);
     if (pathname === "/") {
@@ -59,17 +33,31 @@ export function Navbar() {
     <>
       <nav className="sticky top-0 z-40 w-full backdrop-blur-md bg-[#FAF8F5]/85 border-b border-stone-200/60 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-          {/* Authentic Brand Logo Mark (No redundant adjacent text, transparent, mix-blend-multiply) */}
-          <Link href="/" className="flex items-center group shrink-0" aria-label="Kaca Putih Cafe & Kitchen">
-            <Logo variant="horizontal" size="sm" />
+          {/* Logo & Brand Identity */}
+          <Link
+            href="/"
+            className="flex items-center gap-3 group focus:outline-none"
+            aria-label="Kaca Putih Cafe & Kitchen"
+          >
+            <div className="w-12 h-12 relative flex items-center justify-center p-1 rounded-full bg-forest/5 border border-forest/15 group-hover:border-forest/40 transition-colors">
+              <Logo variant="icon" size="sm" className="w-9 h-9 object-contain" />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-espresso group-hover:text-forest transition-colors leading-none">
+                Kaca Putih
+              </span>
+              <span className="text-[10px] tracking-[0.2em] uppercase font-sans font-medium text-stone-500 mt-1">
+                Cafe &amp; Kitchen
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop Customer Navigation (Refined Minimalist English) */}
+          {/* Desktop Customer Navigation Links */}
           <div className="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase text-stone-600">
             <button
               type="button"
               onClick={() => handleNavClick("menu-catalog")}
-              className="hover:text-forest transition-colors py-1 font-bold text-espresso"
+              className="hover:text-forest transition-colors py-1"
             >
               Menu
             </button>
@@ -110,75 +98,9 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Actions & Utilities Right Section */}
+          {/* Customer Actions & Utilities Right Section */}
           <div className="flex items-center gap-3">
-            {/* Discreet Staff Portal Dropdown */}
-            <div ref={staffDropdownRef} className="relative hidden md:block">
-              <button
-                type="button"
-                onClick={() => setStaffDropdownOpen((prev) => !prev)}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-stone-500 hover:text-espresso hover:bg-cream-200/50 transition-colors"
-                title="Internal Management (KDS & Admin)"
-              >
-                <span>Staff Hub</span>
-                <ChevronDown className="w-3 h-3 opacity-60" />
-              </button>
-
-              {staffDropdownOpen && (
-                <div className="absolute right-0 mt-1.5 w-52 rounded-2xl bg-white border border-stone-200/60 shadow-floating p-1.5 z-50 text-xs animate-fade-in space-y-0.5">
-                  <Link
-                    href="/pos"
-                    onClick={() => setStaffDropdownOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
-                  >
-                    <ShoppingBag className="w-4 h-4 text-forest group-hover:text-cream-50" />
-                    <span>POS Terminal</span>
-                  </Link>
-                  <Link
-                    href="/pos/shift"
-                    onClick={() => setStaffDropdownOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
-                  >
-                    <ChefHat className="w-4 h-4 text-forest group-hover:text-cream-50" />
-                    <span>Shift &amp; Cash Register</span>
-                  </Link>
-                  <Link
-                    href="/pos/test-print"
-                    onClick={() => setStaffDropdownOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
-                  >
-                    <Printer className="w-4 h-4 text-forest group-hover:text-cream-50" />
-                    <span>Test Print 58mm</span>
-                  </Link>
-                  <Link
-                    href="/kitchen"
-                    onClick={() => setStaffDropdownOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
-                  >
-                    <ChefHat className="w-4 h-4 text-forest group-hover:text-cream-50" />
-                    <span>Kitchen KDS</span>
-                  </Link>
-                  <Link
-                    href="/admin/menu"
-                    onClick={() => setStaffDropdownOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
-                  >
-                    <ShieldCheck className="w-4 h-4 text-forest group-hover:text-cream-50" />
-                    <span>Menu Catalog Admin</span>
-                  </Link>
-                  <Link
-                    href="/admin"
-                    onClick={() => setStaffDropdownOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
-                  >
-                    <ShieldCheck className="w-4 h-4 text-forest group-hover:text-cream-50" />
-                    <span>Admin Backoffice</span>
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Cart Button: Refined Cart (X) indicator with minimal shopping bag icon */}
+            {/* Cart Button */}
             <button
               type="button"
               onClick={() => setIsCartOpen(true)}
@@ -208,7 +130,7 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile Customer Navigation Drawer */}
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-stone-200/60 bg-[#FAF8F5] px-5 py-6 space-y-4 shadow-floating animate-fade-in">
             <div className="flex flex-col space-y-3 text-sm font-serif font-bold text-espresso">
@@ -251,56 +173,21 @@ export function Navbar() {
                 Location &amp; Hours
               </button>
             </div>
-
-            {/* Mobile Utility & Staff Links */}
-            <div className="pt-4 border-t border-stone-200/60 flex flex-wrap items-center justify-between gap-3 text-xs text-stone-500 font-medium">
-              <Link
-                href="/pos"
-                onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-forest flex items-center gap-1"
-              >
-                <ShoppingBag className="w-3.5 h-3.5" />
-                <span>POS</span>
-              </Link>
-              <Link
-                href="/kitchen"
-                onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-forest flex items-center gap-1"
-              >
-                <ChefHat className="w-3.5 h-3.5" />
-                <span>KDS</span>
-              </Link>
-              <Link
-                href="/admin/menu"
-                onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-forest flex items-center gap-1"
-              >
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Menu</span>
-              </Link>
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="hover:text-forest flex items-center gap-1"
-              >
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Admin</span>
-              </Link>
-            </div>
           </div>
         )}
       </nav>
 
-      {/* Subtle Floating Recruiter Sandbox Pill (Bottom-Right, Never dominating header) */}
+      {/* Subtle Floating Recruiter Sandbox Pill (Bottom-Right) */}
       {isDemoMode && (
         <button
           type="button"
           onClick={() => setIsDemoMode(false)}
-          className="fixed bottom-4 right-4 z-50 bg-stone-900/80 backdrop-blur-md text-stone-200 text-xs px-3 py-1.5 rounded-full border border-stone-700 hover:bg-stone-900 transition-all shadow-lg flex items-center gap-1.5 cursor-pointer"
-          title="Click to turn off sandbox mode"
+          className="fixed bottom-4 right-4 z-40 bg-stone-900/90 text-stone-300 hover:text-white px-3 py-1.5 rounded-full text-[11px] font-mono border border-stone-700/60 shadow-floating backdrop-blur-xs flex items-center gap-1.5 transition-all group"
+          title="Sandbox Mode Active: Click to disable"
         >
-          <span>⚡ Recruiter Sandbox Active</span>
-          <span className="text-[10px] text-stone-400 underline ml-1">Turn Off</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+          <span>Recruiter Sandbox Active</span>
+          <span className="text-stone-500 group-hover:text-stone-300 ml-1">Turn Off</span>
         </button>
       )}
     </>

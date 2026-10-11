@@ -13,6 +13,13 @@ import {
   Moon,
   Sun,
   Store,
+  CreditCard,
+  Clock,
+  ChefHat,
+  ClipboardList,
+  Printer,
+  ArrowLeft,
+  ExternalLink,
 } from "lucide-react";
 import { PRODUCTS, DEFAULT_STORE_SETTINGS } from "@/data/menu";
 import { Product, StoreSettings } from "@/types";
@@ -46,6 +53,13 @@ export default function AdminPage() {
 
   // Check Supabase session on mount
   useEffect(() => {
+    // Check local session storage first (for sandbox / mock demo login)
+    const localSession = typeof window !== "undefined" ? sessionStorage.getItem("kp_admin_authenticated") : null;
+    if (localSession === "true") {
+      setIsAuthenticated(true);
+      setCurrentUser("staff.internal@kacaputih.com");
+    }
+
     const supabase = getSupabaseBrowserClient();
     if (isSupabaseConfigured && supabase) {
       supabase.auth.getSession().then(({ data }: { data: { session: { user?: { email?: string } } | null } }) => {
@@ -54,13 +68,6 @@ export default function AdminPage() {
           setCurrentUser(data.session.user?.email || "Admin");
         }
       });
-    } else {
-      // If local demo mode, check session storage
-      const localSession = sessionStorage.getItem("kp_admin_authenticated");
-      if (localSession === "true") {
-        setIsAuthenticated(true);
-        setCurrentUser("recruiter.demo@kacaputih.com");
-      }
     }
 
     // Load saved bakery overrides from localStorage if present
@@ -280,41 +287,161 @@ export default function AdminPage() {
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-forest" />
               <h1 className="font-serif text-2xl font-bold text-espresso">
-                Store Operations & Bakery Batches
+                Staff Workspace &amp; Operasional Resto
               </h1>
             </div>
             <p className="text-xs text-espresso-muted mt-0.5">
-              Logged in as <strong className="text-forest">{currentUser}</strong> • Supabase Auth Session
+              Logged in as <strong className="text-forest">{currentUser}</strong> • Kaca Putih Internal Portal
             </p>
           </div>
 
           <div className="flex items-center gap-2.5">
             <Link
-              href="/admin/menu"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-forest hover:bg-forest-hover text-cream-50 text-xs font-bold transition-all shadow-xs"
+              href="/"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 text-xs font-semibold transition-colors shadow-xs"
             >
-              <span>Katalog &amp; Edit Menu</span>
-            </Link>
-            <Link
-              href="/pos"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 text-xs font-semibold transition-colors"
-            >
-              <span>Ke Kasir POS</span>
-            </Link>
-            <Link
-              href="/pos/shift"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 text-xs font-semibold transition-colors"
-            >
-              <span>Shift Kasir</span>
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Customer Site</span>
             </Link>
             <button
               type="button"
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-700 text-xs font-semibold transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-colors"
             >
               <LogOut className="w-3.5 h-3.5" />
-              <span>Sign Out</span>
+              <span>Logout</span>
             </button>
+          </div>
+        </div>
+
+        {/* Staff App Launcher Grid */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-stone-500">
+              Modul Operasional Staf (Quick Launch)
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5">
+            {/* 1. POS Terminal */}
+            <Link
+              href="/pos"
+              className="p-5 rounded-2xl bg-white border border-stone-200 hover:border-forest/60 hover:shadow-md transition-all flex flex-col justify-between group text-left"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <CreditCard className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm text-espresso group-hover:text-forest transition-colors">
+                    POS Terminal
+                  </h3>
+                  <p className="text-[11px] text-stone-500 mt-1 leading-relaxed">
+                    Kasir touchscreen, pesanan dine-in &amp; takeaway, kalkulasi uang pas &amp; kembalian.
+                  </p>
+                </div>
+              </div>
+              <div className="pt-3 mt-3 border-t border-stone-100 flex items-center justify-between text-[11px] font-semibold text-forest">
+                <span>Buka Layar POS</span>
+                <ExternalLink className="w-3 h-3 opacity-60" />
+              </div>
+            </Link>
+
+            {/* 2. Shift & Cash Register */}
+            <Link
+              href="/pos/shift"
+              className="p-5 rounded-2xl bg-white border border-stone-200 hover:border-forest/60 hover:shadow-md transition-all flex flex-col justify-between group text-left"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Clock className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm text-espresso group-hover:text-forest transition-colors">
+                    Shift Register
+                  </h3>
+                  <p className="text-[11px] text-stone-500 mt-1 leading-relaxed">
+                    Buka/tutup shift kasir, modal kas laci, audit omset, cetak rekap shift 58mm.
+                  </p>
+                </div>
+              </div>
+              <div className="pt-3 mt-3 border-t border-stone-100 flex items-center justify-between text-[11px] font-semibold text-forest">
+                <span>Audit Kas &amp; Shift</span>
+                <ExternalLink className="w-3 h-3 opacity-60" />
+              </div>
+            </Link>
+
+            {/* 3. Kitchen Display System */}
+            <Link
+              href="/kitchen"
+              className="p-5 rounded-2xl bg-white border border-stone-200 hover:border-forest/60 hover:shadow-md transition-all flex flex-col justify-between group text-left"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <ChefHat className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm text-espresso group-hover:text-forest transition-colors">
+                    Kitchen KDS
+                  </h3>
+                  <p className="text-[11px] text-stone-500 mt-1 leading-relaxed">
+                    Kanban antrean dapur bar &amp; kitchen, audio chime pesanan masuk, realtime timer.
+                  </p>
+                </div>
+              </div>
+              <div className="pt-3 mt-3 border-t border-stone-100 flex items-center justify-between text-[11px] font-semibold text-forest">
+                <span>Layar Antrean Dapur</span>
+                <ExternalLink className="w-3 h-3 opacity-60" />
+              </div>
+            </Link>
+
+            {/* 4. Menu Catalog Management */}
+            <Link
+              href="/admin/menu"
+              className="p-5 rounded-2xl bg-white border border-stone-200 hover:border-forest/60 hover:shadow-md transition-all flex flex-col justify-between group text-left"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <ClipboardList className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm text-espresso group-hover:text-forest transition-colors">
+                    Katalog Menu
+                  </h3>
+                  <p className="text-[11px] text-stone-500 mt-1 leading-relaxed">
+                    Tambah produk baru, ubah harga kilat, upload foto item, &amp; atur stok harian.
+                  </p>
+                </div>
+              </div>
+              <div className="pt-3 mt-3 border-t border-stone-100 flex items-center justify-between text-[11px] font-semibold text-forest">
+                <span>Kelola Menu</span>
+                <ExternalLink className="w-3 h-3 opacity-60" />
+              </div>
+            </Link>
+
+            {/* 5. Thermal Print Diagnostic */}
+            <Link
+              href="/pos/test-print"
+              className="p-5 rounded-2xl bg-white border border-stone-200 hover:border-forest/60 hover:shadow-md transition-all flex flex-col justify-between group text-left"
+            >
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-700 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Printer className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-sm text-espresso group-hover:text-forest transition-colors">
+                    Thermal 58mm
+                  </h3>
+                  <p className="text-[11px] text-stone-500 mt-1 leading-relaxed">
+                    Diagnostik cetak struk 58mm, uji koneksi Sharkpos RawBT &amp; Web Bluetooth BLE.
+                  </p>
+                </div>
+              </div>
+              <div className="pt-3 mt-3 border-t border-stone-100 flex items-center justify-between text-[11px] font-semibold text-forest">
+                <span>Diagnostik Printer</span>
+                <ExternalLink className="w-3 h-3 opacity-60" />
+              </div>
+            </Link>
           </div>
         </div>
 
