@@ -6,24 +6,49 @@ import {
   Clock,
   MapPin,
   Sparkles,
-  Utensils,
-  ShoppingBag,
   ArrowRight,
   Coffee,
   Croissant,
   Compass,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { StoreSettings } from "@/types";
 import { DEFAULT_STORE_SETTINGS } from "@/data/menu";
 import { checkStoreStatus, getWIBTimeStrings } from "@/lib/utils";
-import { useCartStore } from "@/lib/cart-store";
-import { Logo } from "@/components/brand/Logo";
 
 interface HeroProps {
   settings?: StoreSettings;
   onExploreMenu?: () => void;
   onVisitUs?: () => void;
 }
+
+const SIGNATURE_SLIDES = [
+  {
+    id: "dirty-latte",
+    index: "01",
+    name: "Dirty Latte",
+    subtitle: "Rich espresso over chilled velvety milk",
+    image: "/images/menu/dirty_latte.png",
+    price: "32K",
+  },
+  {
+    id: "mont-blanc",
+    index: "02",
+    name: "Mont Blanc",
+    subtitle: "Signature cold brew with sweet cream crown",
+    image: "/images/menu/mont_blanc.png",
+    price: "30K",
+  },
+  {
+    id: "butterscotch",
+    index: "03",
+    name: "Butterscotch",
+    subtitle: "Caramelized brown butter espresso symphony",
+    image: "/images/menu/butterscotch.png",
+    price: "25K",
+  },
+];
 
 export function Hero({
   settings = DEFAULT_STORE_SETTINGS,
@@ -33,11 +58,7 @@ export function Hero({
   const [currentTimeWIB, setCurrentTimeWIB] = useState<string>("09:00:00 WIB");
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isRamadan, setIsRamadan] = useState<boolean>(false);
-
-  const orderType = useCartStore((s) => s.orderType);
-  const setOrderType = useCartStore((s) => s.setOrderType);
-  const tableNumber = useCartStore((s) => s.tableNumber);
-  const setTableNumber = useCartStore((s) => s.setTableNumber);
+  const [activeSlide, setActiveSlide] = useState<number>(0);
 
   useEffect(() => {
     function updateClock() {
@@ -53,6 +74,14 @@ export function Hero({
     return () => clearInterval(interval);
   }, [settings]);
 
+  // Auto-advance slides every 4 seconds
+  useEffect(() => {
+    const slideTimer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % SIGNATURE_SLIDES.length);
+    }, 4000);
+    return () => clearInterval(slideTimer);
+  }, []);
+
   const handleScrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -61,12 +90,24 @@ export function Hero({
     }
   };
 
+  const handlePrevSlide = () => {
+    setActiveSlide((prev) =>
+      prev === 0 ? SIGNATURE_SLIDES.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextSlide = () => {
+    setActiveSlide((prev) => (prev + 1) % SIGNATURE_SLIDES.length);
+  };
+
   const hoursLabel = isRamadan
     ? "Open Today • 12:00 – 23:00 WIB"
     : "Open Today • 09:00 – 22:00 WIB";
 
+  const currentItem = SIGNATURE_SLIDES[activeSlide] ?? SIGNATURE_SLIDES[0]!;
+
   return (
-    <section className="relative w-full overflow-hidden bg-[#FAF8F5] text-espresso pt-10 pb-16 sm:pt-16 sm:pb-24 border-b border-stone-200/60">
+    <section className="relative w-full overflow-hidden bg-[#FAF8F5] text-espresso pt-12 pb-20 sm:pt-20 sm:pb-28 border-b border-stone-200/60">
       {/* Delicate warm ambient gradient washes */}
       <div
         className="absolute inset-0 opacity-[0.025] pointer-events-none bg-[radial-gradient(#1F4A34_1px,transparent_1px)] [background-size:24px_24px]"
@@ -76,8 +117,8 @@ export function Hero({
       <div className="absolute top-1/2 -left-32 w-80 h-80 rounded-full bg-[#DCE5DF]/30 blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Left Column: Storytelling Headline, Refined Badges & Minimalist English Copy */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Column: Storytelling Headline & Editorial Copy */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             {/* Top Eyebrow Chip */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-200/70 border border-stone-200/60 text-forest text-xs font-semibold mb-6 shadow-2xs">
@@ -116,7 +157,7 @@ export function Hero({
               </div>
             </div>
 
-            {/* Primary & Secondary Minimalist Actions */}
+            {/* Primary & Secondary Actions */}
             <div className="mt-8 flex flex-wrap items-center gap-3.5 w-full sm:w-auto">
               <button
                 type="button"
@@ -142,38 +183,46 @@ export function Hero({
               </button>
             </div>
 
-            {/* Operational Status & Verified Address Bar */}
-            <div className="mt-9 pt-6 border-t border-stone-200/60 w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-espresso-muted">
-              {/* Address */}
-              <div className="flex items-start gap-2 max-w-sm">
-                <MapPin className="w-4 h-4 text-forest shrink-0 mt-0.5" />
-                <span className="leading-snug font-medium text-stone-600">
-                  Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang
-                </span>
-              </div>
+            {/* Operational Status & Verified Address Bar (Strict Single-Line Nowrap Container) */}
+            <div className="mt-9 pt-6 border-t border-stone-200/60 w-full overflow-hidden">
+              <div className="flex items-center gap-2 sm:gap-3 flex-nowrap whitespace-nowrap overflow-x-auto no-scrollbar scrollbar-none py-1 text-[11px] sm:text-xs text-stone-600 font-sans">
+                {/* Full Address */}
+                <div className="flex items-center gap-1.5 shrink-0 whitespace-nowrap font-medium text-stone-600">
+                  <MapPin className="w-3.5 h-3.5 text-forest shrink-0" />
+                  <span>Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang</span>
+                </div>
 
-              {/* Status & Dynamic Hours */}
-              <div className="flex items-center gap-2.5">
+                <span className="text-stone-300 shrink-0 select-none">•</span>
+
+                {/* Status Badge */}
                 <div
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${
+                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0 whitespace-nowrap ${
                     isOpen
                       ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
                       : "bg-rose-50 text-rose-800 border border-rose-200"
                   }`}
                 >
                   <span
-                    className={`w-1.5 h-1.5 rounded-full ${
+                    className={`w-1.5 h-1.5 rounded-full shrink-0 ${
                       isOpen ? "bg-emerald-600 animate-pulse" : "bg-rose-600"
                     }`}
                   />
                   <span>{isOpen ? "Open Now" : "Closed"}</span>
                 </div>
 
-                <div className="flex items-center gap-1.5 text-[11px] text-stone-600 font-medium">
-                  <Clock className="w-3.5 h-3.5 text-stone-400" />
+                <span className="text-stone-300 shrink-0 select-none">•</span>
+
+                {/* Operating Hours */}
+                <div className="flex items-center gap-1 shrink-0 whitespace-nowrap text-stone-600 font-medium">
+                  <Clock className="w-3 h-3 text-stone-400 shrink-0" />
                   <span>{hoursLabel}</span>
-                  <span className="text-stone-300">•</span>
-                  <span className="font-mono text-stone-500">{currentTimeWIB}</span>
+                </div>
+
+                <span className="text-stone-300 shrink-0 select-none">•</span>
+
+                {/* Live Digital Clock */}
+                <div className="font-mono text-[11px] text-stone-500 shrink-0 whitespace-nowrap">
+                  <span>{currentTimeWIB}</span>
                 </div>
               </div>
             </div>
@@ -185,117 +234,111 @@ export function Hero({
                 <span>Special Ramadan Schedule Active (12:00 – 23:00 WIB)</span>
               </div>
             )}
-
-            {/* Dine-In vs Takeaway Order Toggle Bar (Discreet Utility) */}
-            <div className="mt-5 w-full max-w-md p-1.5 rounded-full bg-cream-200/60 border border-stone-200/60 flex items-center gap-1.5 text-xs">
-              <button
-                type="button"
-                onClick={() => setOrderType("dine_in")}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-full transition-all ${
-                  orderType === "dine_in"
-                    ? "bg-forest text-cream-50 font-bold shadow-2xs"
-                    : "text-espresso-muted hover:text-espresso"
-                }`}
-              >
-                <Utensils className="w-3.5 h-3.5" />
-                <span>Dine In {tableNumber ? `(Table ${tableNumber})` : ""}</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setOrderType("takeaway")}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-full transition-all ${
-                  orderType === "takeaway"
-                    ? "bg-forest text-cream-50 font-bold shadow-2xs"
-                    : "text-espresso-muted hover:text-espresso"
-                }`}
-              >
-                <ShoppingBag className="w-3.5 h-3.5" />
-                <span>Takeaway Pickup</span>
-              </button>
-
-              {orderType === "dine_in" && !tableNumber && (
-                <input
-                  type="number"
-                  min="1"
-                  max="99"
-                  placeholder="Table"
-                  onChange={(e) => {
-                    const val = e.target.value ? parseInt(e.target.value, 10) : null;
-                    setTableNumber(val);
-                  }}
-                  className="w-14 px-2 py-1.5 bg-white border border-stone-200/60 rounded-full text-center text-xs font-bold text-espresso focus:outline-none focus:ring-1 focus:ring-forest"
-                  title="Table number"
-                />
-              )}
-            </div>
           </div>
 
-          {/* Right Column: Luxury Editorial Magazine Collage (Arch Frame + Soft Ambient Shadows + Floating Tags) */}
-          <div className="lg:col-span-5 relative flex items-center justify-center">
-            {/* Background Decorative Soft Arch Frame */}
-            <div className="relative w-full max-w-[380px] sm:max-w-[420px] aspect-[4/5] rounded-t-full rounded-b-3xl overflow-hidden border-2 border-stone-200/60 bg-gradient-to-b from-[#F3EFE6] via-[#EFE9DC] to-[#E5DECF] shadow-2xl shadow-stone-300/40 flex flex-col justify-between p-6 group">
+          {/* Right Column: Clean Editorial Arched Frame with Auto-Cycling Crossfade Slideshow */}
+          <div className="lg:col-span-5 relative flex flex-col items-center justify-center">
+            {/* Arched Frame Showcase */}
+            <div className="relative w-full max-w-[360px] sm:max-w-[400px] aspect-[4/5] rounded-t-full rounded-b-3xl overflow-hidden border-2 border-stone-200/60 bg-gradient-to-b from-[#F3EFE6] via-[#EFE9DC] to-[#E5DECF] shadow-2xl shadow-stone-300/40 flex flex-col justify-between p-6">
               {/* Top Subtitle inside arch */}
               <div className="w-full text-center pt-8 z-10">
                 <span className="font-serif italic text-xs tracking-widest text-amber-900/80 uppercase">
                   Artisanal House Special
                 </span>
                 <h3 className="font-serif text-xl sm:text-2xl font-bold text-espresso mt-1">
-                  Dirty Latte &amp; Mont Blanc
+                  Signature Collection
                 </h3>
               </div>
 
-              {/* Center Signature Glass Photo */}
-              <div className="relative w-full flex-1 flex items-center justify-center my-2">
-                <Image
-                  src="/images/menu/dirty_latte.png"
-                  alt="Signature Pour • Mont Blanc / Dirty Latte"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 420px"
-                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
+              {/* Center Signature Drink Crossfade Container */}
+              <div className="relative w-full flex-1 flex items-center justify-center my-2 overflow-hidden">
+                {SIGNATURE_SLIDES.map((slide, idx) => {
+                  const isCurrent = idx === activeSlide;
+                  return (
+                    <div
+                      key={slide.id}
+                      className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out p-4 ${
+                        isCurrent
+                          ? "opacity-100 scale-100 z-10 pointer-events-auto"
+                          : "opacity-0 scale-95 z-0 pointer-events-none"
+                      }`}
+                    >
+                      <Image
+                        src={slide.image}
+                        alt={slide.name}
+                        fill
+                        priority={idx === 0}
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        className="object-contain p-2"
+                      />
+                    </div>
+                  );
+                })}
               </div>
 
-              {/* Bottom Delicate Floating Tag */}
+              {/* Bottom Subtle Pill Badge */}
               <div className="w-full text-center pb-2 z-10">
-                <div className="inline-block px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-stone-200/60 shadow-sm text-xs font-medium text-stone-700">
-                  <span className="font-serif italic">Signature Pour</span> • Mont Blanc / Dirty Latte
+                <div className="inline-block px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-stone-200/60 shadow-xs text-xs font-medium text-stone-700">
+                  <span className="font-serif italic">Signature Pour</span> • Handcrafted Espresso
                 </div>
               </div>
             </div>
 
-            {/* Overlapping Floating Ingredient Tag 1: Mont Blanc Velvety Cream */}
-            <div className="absolute -top-3 -left-3 sm:-left-6 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-stone-200/60 shadow-floating flex items-center gap-3 max-w-[210px] animate-fade-in hidden sm:flex">
-              <div className="relative w-11 h-11 rounded-xl overflow-hidden shrink-0">
-                <Image
-                  src="/images/menu/sq_mont_blanc.png"
-                  alt="Mont Blanc 30K"
-                  fill
-                  sizes="44px"
-                  className="object-cover"
-                />
+            {/* Clean, Understated Caption & Controls Below the Arch */}
+            <div className="w-full max-w-[360px] sm:max-w-[400px] mt-4 flex items-center justify-between px-2 text-espresso">
+              {/* Active Item Title & Subtitle */}
+              <div className="text-left">
+                <div className="flex items-baseline gap-2">
+                  <span className="font-mono text-xs font-semibold text-forest">
+                    {currentItem.index}
+                  </span>
+                  <span className="font-serif font-bold text-base text-espresso">
+                    {currentItem.name}
+                  </span>
+                  <span className="font-mono text-xs font-bold text-forest">
+                    {currentItem.price}
+                  </span>
+                </div>
+                <p className="text-[11px] text-stone-500 mt-0.5">
+                  {currentItem.subtitle}
+                </p>
               </div>
-              <div className="flex flex-col">
-                <span className="font-serif font-bold text-xs text-espresso leading-snug">
-                  Mont Blanc
-                </span>
-                <span className="text-[10px] text-stone-500">Velvety Cream Crown</span>
-                <span className="font-mono text-xs font-bold text-forest mt-0.5">30K</span>
-              </div>
-            </div>
 
-            {/* Overlapping Floating Ingredient Tag 2: Japanese Salt Bread Callout */}
-            <div className="absolute -bottom-4 -right-3 sm:-right-6 p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-stone-200/60 shadow-floating flex items-center gap-3 max-w-[210px] animate-fade-in hidden sm:flex">
-              <div className="relative w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0 text-amber-800">
-                <Croissant className="w-5 h-5 text-amber-700" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif font-bold text-xs text-espresso leading-snug">
-                  Artisan Shio Pan
-                </span>
-                <span className="text-[10px] text-stone-500">Baked Fresh Daily</span>
-                <span className="font-mono text-xs font-bold text-amber-800 mt-0.5">From 18K</span>
+              {/* Slide Navigation: Arrow controls & Dots */}
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={handlePrevSlide}
+                  className="p-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:text-forest hover:border-forest/40 transition-colors shadow-2xs"
+                  aria-label="Previous Slide"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+
+                <div className="flex items-center gap-1 px-1">
+                  {SIGNATURE_SLIDES.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setActiveSlide(i)}
+                      className={`h-1.5 rounded-full transition-all ${
+                        i === activeSlide
+                          ? "w-4 bg-forest"
+                          : "w-1.5 bg-stone-300 hover:bg-stone-400"
+                      }`}
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleNextSlide}
+                  className="p-1.5 rounded-full bg-white border border-stone-200 text-stone-600 hover:text-forest hover:border-forest/40 transition-colors shadow-2xs"
+                  aria-label="Next Slide"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
               </div>
             </div>
           </div>
