@@ -27,6 +27,7 @@ import {
   ArrowRight,
   ShieldCheck,
   CheckCircle2,
+  Printer,
 } from "lucide-react";
 
 interface PosCartItem {
@@ -216,6 +217,15 @@ export default function PosPage() {
               Buka Shift Kasir
             </button>
           )}
+
+          <Link
+            href="/pos/test-print"
+            className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-xl bg-forest-dark/80 text-cream-200 text-xs hover:text-white"
+            title="Uji Cetak Struk 58mm"
+          >
+            <Printer className="w-3.5 h-3.5" />
+            <span>Test Print</span>
+          </Link>
 
           <Link
             href="/admin"

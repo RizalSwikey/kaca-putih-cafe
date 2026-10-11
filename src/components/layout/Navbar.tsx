@@ -10,6 +10,7 @@ import {
   ChefHat,
   ShieldCheck,
   ChevronDown,
+  Printer,
 } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { useCartStore } from "@/lib/cart-store";
@@ -140,6 +141,14 @@ export function Navbar() {
                   >
                     <ChefHat className="w-4 h-4 text-forest group-hover:text-cream-50" />
                     <span>Shift &amp; Cash Register</span>
+                  </Link>
+                  <Link
+                    href="/pos/test-print"
+                    onClick={() => setStaffDropdownOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-espresso hover:bg-forest hover:text-cream-50 transition-colors font-medium group"
+                  >
+                    <Printer className="w-4 h-4 text-forest group-hover:text-cream-50" />
+                    <span>Test Print 58mm</span>
                   </Link>
                   <Link
                     href="/kitchen"
