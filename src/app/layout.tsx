@@ -130,15 +130,24 @@ export default function RootLayout({
               © {new Date().getFullYear()} Kaca Putih Cafe &amp; Kitchen. All rights reserved.
             </p>
 
-            {/* Discreet Staff Portal Link */}
-            <div className="flex items-center gap-2 text-cream-300/40">
+            {/* Discreet Staff Portal Links */}
+            <div className="flex items-center gap-4 text-cream-300/60">
               <Link
-                href="/login"
-                className="hover:text-cream-200 transition-colors flex items-center gap-1.5 opacity-60 hover:opacity-100"
-                title="Staff Portal & Internal Access"
+                href="/kitchen"
+                className="hover:text-cream-200 transition-colors flex items-center gap-1"
+                title="Kitchen Display System"
+              >
+                <ChefHat className="w-3.5 h-3.5" />
+                <span>Kitchen KDS</span>
+              </Link>
+              <span>•</span>
+              <Link
+                href="/admin"
+                className="hover:text-cream-200 transition-colors flex items-center gap-1"
+                title="Admin Backoffice"
               >
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Internal Access</span>
+                <span>Staff Admin</span>
               </Link>
             </div>
           </div>
