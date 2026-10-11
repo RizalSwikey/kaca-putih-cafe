@@ -142,42 +142,49 @@ export function Hero({
               </button>
             </div>
 
-            {/* Operational Status & Verified Address Bar */}
-            <div className="mt-9 pt-6 border-t border-stone-200/60 w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-espresso-muted">
-              {/* Address */}
-              <div className="flex items-start gap-2 max-w-sm">
-                <MapPin className="w-4 h-4 text-forest shrink-0 mt-0.5" />
-                <span className="leading-snug font-medium text-stone-600">
-                  Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang
-                </span>
-              </div>
+            {/* Operational Status & Verified Address Bar (Strict Single-Line Nowrap) */}
+            <div className="mt-9 pt-5 border-t border-stone-200/60 w-full overflow-hidden">
+              <div className="flex items-center gap-2 md:gap-3 flex-nowrap whitespace-nowrap overflow-x-auto no-scrollbar scrollbar-none py-1 text-[11px] md:text-xs text-stone-600 font-sans">
+                {/* Full Address */}
+                <div className="flex items-center gap-1.5 shrink-0 whitespace-nowrap font-medium text-stone-600">
+                  <MapPin className="w-3.5 h-3.5 text-forest shrink-0" />
+                  <span>Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang</span>
+                </div>
 
-              {/* Status & Dynamic Hours */}
-              <div className="flex items-center gap-2.5">
+                <span className="text-stone-300 shrink-0 select-none">•</span>
+
+                {/* Status Badge */}
                 <div
-                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${
+                  className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0 whitespace-nowrap ${
                     isOpen
                       ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
                       : "bg-rose-50 text-rose-800 border border-rose-200"
                   }`}
                 >
                   <span
-                    className={`w-1.5 h-1.5 rounded-full ${
+                    className={`w-1.5 h-1.5 rounded-full shrink-0 ${
                       isOpen ? "bg-emerald-600 animate-pulse" : "bg-rose-600"
                     }`}
                   />
-                  <span>{isOpen ? "Open Now" : "Closed"}</span>
+                  <span>{isOpen ? "OPEN NOW" : "CLOSED"}</span>
                 </div>
 
-                <div className="flex items-center gap-1.5 text-[11px] text-stone-600 font-medium">
-                  <Clock className="w-3.5 h-3.5 text-stone-400" />
+                <span className="text-stone-300 shrink-0 select-none">•</span>
+
+                {/* Operating Hours */}
+                <div className="flex items-center gap-1 shrink-0 whitespace-nowrap text-stone-600 font-medium">
+                  <Clock className="w-3 h-3 text-stone-400 shrink-0" />
                   <span>{hoursLabel}</span>
-                  <span className="text-stone-300">•</span>
-                  <span className="font-mono text-stone-500">{currentTimeWIB}</span>
+                </div>
+
+                <span className="text-stone-300 shrink-0 select-none">•</span>
+
+                {/* Live Digital Clock */}
+                <div className="font-mono text-[11px] text-stone-500 shrink-0 whitespace-nowrap">
+                  <span>{currentTimeWIB}</span>
                 </div>
               </div>
             </div>
-
             {/* Ramadan Schedule Alert if Active */}
             {isRamadan && (
               <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 text-xs font-medium">
