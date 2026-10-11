@@ -30,7 +30,7 @@ export function Hero({
   onExploreMenu,
   onVisitUs,
 }: HeroProps) {
-  const [currentTimeWIB, setCurrentTimeWIB] = useState<string>("15:00 WIB");
+  const [currentTimeWIB, setCurrentTimeWIB] = useState<string>("09:00:00 WIB");
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [isRamadan, setIsRamadan] = useState<boolean>(false);
 
@@ -41,14 +41,7 @@ export function Hero({
 
   useEffect(() => {
     function updateClock() {
-      const now = new Date();
-      const timeFormatter = new Intl.DateTimeFormat("en-US", {
-        timeZone: "Asia/Jakarta",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      });
-      const timeStr = timeFormatter.format(now);
+      const { timeStr } = getWIBTimeStrings();
       const status = checkStoreStatus(settings);
       setCurrentTimeWIB(`${timeStr} WIB`);
       setIsOpen(status.isOpen);
@@ -56,8 +49,7 @@ export function Hero({
     }
 
     updateClock();
-    // Update every minute instead of ticking seconds
-    const interval = setInterval(updateClock, 60000);
+    const interval = setInterval(updateClock, 1000);
     return () => clearInterval(interval);
   }, [settings]);
 
@@ -69,10 +61,10 @@ export function Hero({
     }
   };
 
-  const closingHour = isRamadan ? "23:00" : "22:00";
-  const statusLabel = isOpen
-    ? `Open until ${closingHour}`
-    : `Closed • Opens ${isRamadan ? "12:00" : "09:00"}`;
+  const hoursLabel = isRamadan
+    ? "Open Today • 12:00 – 23:00 WIB"
+    : "Open Today • 09:00 – 22:00 WIB";
+
   return (
     <section className="relative w-full overflow-hidden bg-[#FAF8F5] text-espresso pt-10 pb-16 sm:pt-16 sm:pb-24 border-b border-stone-200/60">
       {/* Delicate warm ambient gradient washes */}
@@ -84,39 +76,18 @@ export function Hero({
       <div className="absolute top-1/2 -left-32 w-80 h-80 rounded-full bg-[#DCE5DF]/30 blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Elegant, single-line borderless metadata bar above headline */}
-        <div className="flex flex-col sm:flex-row justify-between items-center w-full max-w-4xl mx-auto border-b border-stone-200/40 pb-4 mb-8 text-xs font-sans tracking-wider text-stone-500 gap-2 sm:gap-4">
-          {/* 1. Location */}
-          <div className="flex items-center gap-1.5 font-medium whitespace-nowrap">
-            <span>📍 Bunulrejo, Malang</span>
-          </div>
-
-          <span className="hidden sm:inline text-stone-300 select-none">•</span>
-
-          {/* 2. Operational Status (Subtle borderless capsule with soft green dot) */}
-          <div className="flex items-center gap-1.5 font-medium whitespace-nowrap">
-            <span
-              className={`w-2 h-2 rounded-full ${
-                isOpen ? "bg-emerald-500 animate-pulse" : "bg-rose-500"
-              }`}
-            />
-            <span className={isOpen ? "text-stone-700 font-semibold" : "text-stone-500"}>
-              {statusLabel}
-            </span>
-          </div>
-
-          <span className="hidden sm:inline text-stone-300 select-none">•</span>
-
-          {/* 3. Current WIB Time (Hour & Minute only, no ticking seconds) */}
-          <div className="flex items-center gap-1.5 font-mono text-stone-500 whitespace-nowrap">
-            <Clock className="w-3.5 h-3.5 text-stone-400" />
-            <span>{currentTimeWIB}</span>
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           {/* Left Column: Storytelling Headline, Refined Badges & Minimalist English Copy */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
+            {/* Top Eyebrow Chip */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-200/70 border border-stone-200/60 text-forest text-xs font-semibold mb-6 shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-forest animate-pulse" />
+              <span className="font-serif tracking-widest uppercase text-[11px] font-bold">
+                Kaca Putih Cafe &amp; Kitchen • Bunulrejo, Malang
+              </span>
+            </div>
+
+            {/* Main Editorial Headline */}
             <h1 className="font-serif text-4xl sm:text-6xl lg:text-[4.25rem] font-bold text-espresso tracking-tight leading-[1.12]">
               Quiet Corners,{" "}
               <span className="italic font-normal text-forest block sm:inline font-serif">
@@ -171,9 +142,45 @@ export function Hero({
               </button>
             </div>
 
+            {/* Operational Status & Verified Address Bar */}
+            <div className="mt-9 pt-6 border-t border-stone-200/60 w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-espresso-muted">
+              {/* Address */}
+              <div className="flex items-start gap-2 max-w-sm">
+                <MapPin className="w-4 h-4 text-forest shrink-0 mt-0.5" />
+                <span className="leading-snug font-medium text-stone-600">
+                  Jl. Hamid Rusdi Tim. No.350, Bunulrejo, Blimbing, Malang
+                </span>
+              </div>
+
+              {/* Status & Dynamic Hours */}
+              <div className="flex items-center gap-2.5">
+                <div
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${
+                    isOpen
+                      ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                      : "bg-rose-50 text-rose-800 border border-rose-200"
+                  }`}
+                >
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      isOpen ? "bg-emerald-600 animate-pulse" : "bg-rose-600"
+                    }`}
+                  />
+                  <span>{isOpen ? "Open Now" : "Closed"}</span>
+                </div>
+
+                <div className="flex items-center gap-1.5 text-[11px] text-stone-600 font-medium">
+                  <Clock className="w-3.5 h-3.5 text-stone-400" />
+                  <span>{hoursLabel}</span>
+                  <span className="text-stone-300">•</span>
+                  <span className="font-mono text-stone-500">{currentTimeWIB}</span>
+                </div>
+              </div>
+            </div>
+
             {/* Ramadan Schedule Alert if Active */}
             {isRamadan && (
-              <div className="mt-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 text-xs font-medium">
+              <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 text-xs font-medium">
                 <Sparkles className="w-3.5 h-3.5 text-amber-700" />
                 <span>Special Ramadan Schedule Active (12:00 – 23:00 WIB)</span>
               </div>
